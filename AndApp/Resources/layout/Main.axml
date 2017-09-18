@@ -11,16 +11,25 @@
         android:id="@+id/inputText"
         android:layout_marginBottom="15.5dp"
         android:layout_marginTop="15.0dp" />
-    <Button
-        android:text="Start"
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/Start" />
-    <Button
-        android:text="Log"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/log_button" />
+        android:id="@+id/linearLayout2"
+        android:gravity="center">
+        <Button
+            android:text="Start"
+            android:id="@+id/Start"
+            android:gravity="center"
+            android:layout_width="100.0dp"
+            android:layout_height="match_parent" />
+        <Button
+            android:text="Log"
+            android:id="@+id/log_button"
+            android:gravity="center"
+            android:layout_width="100.0dp"
+            android:layout_height="match_parent" />
+    </LinearLayout>
     <LinearLayout
         android:orientation="horizontal"
         android:minWidth="25px"
@@ -37,12 +46,12 @@
             android:layout_marginBottom="0.0dp"
             android:layout_marginRight="0.0dp"
             android:layout_marginLeft="0.0dp"
-            android:layout_marginTop="22.5dp" />
+            android:layout_marginTop="0.0dp" />
     </LinearLayout>
     <TextView
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="32.0dp"
         android:id="@+id/textView1"
         android:gravity="center" />
 </LinearLayout>

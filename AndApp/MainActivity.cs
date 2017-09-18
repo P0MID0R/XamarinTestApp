@@ -40,6 +40,7 @@ namespace WeatherApp
             Button Log_button = FindViewById<Button>(Resource.Id.log_button);
             EditText inputText = FindViewById<EditText>(Resource.Id.inputText);
             ImageView weathericon = FindViewById<ImageView>(Resource.Id.imageView1);
+            ListView LogList = FindViewById<ListView>(Resource.Id.listView1);
             LinearLayout imageLayout = FindViewById<LinearLayout>(Resource.Id.linearLayout1);
             imageLayout.Visibility = ViewStates.Invisible;
             TextView CityName = FindViewById<TextView>(Resource.Id.textView1);
@@ -53,7 +54,7 @@ namespace WeatherApp
             string path = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
 
 
-            createDatabase(System.IO.Path.Combine(path, "localAppDB.db"));
+            connectDatabase(System.IO.Path.Combine(path, "localAppDB.db"));
 
 
 
@@ -70,9 +71,9 @@ namespace WeatherApp
                        Toast.MakeText(ApplicationContext, "Погода в " + inputText.Text + " сейчас: " + temp.ToString() + "C", ToastLength.Long).Show();
 
                        string icon = (string)data["weather"][0]["icon"];
-                       var imageBitmap = GetImageBitmapFromUrl("http://openweathermap.org/img/w/"+ icon + ".png");
+                       var imageBitmap = GetImageBitmapFromUrl("http://openweathermap.org/img/w/" + icon + ".png");
                        weathericon.SetImageBitmap(imageBitmap);
-                       CityName.Text = (string)data["name"];
+                       CityName.Text = (string)data["name"] + "( " + (string)data["weather"][0]["main"] + " )";
                        imageLayout.Visibility = ViewStates.Visible;
                        CityName.Visibility = ViewStates.Visible;
 
@@ -80,6 +81,7 @@ namespace WeatherApp
                        currentdata.City = (string)data["name"];
                        currentdata.date = DateTime.Now;
                        currentdata.temp = temp;
+                       currentdata.icon = (string)data["weather"][0]["icon"];
                        insertUpdateData(currentdata, System.IO.Path.Combine(path, "localAppDB.db"));
                        inputText.Text = string.Empty;
                    }
@@ -98,7 +100,7 @@ namespace WeatherApp
 
         }
 
-        private string createDatabase(string path)
+        private string connectDatabase(string path)
         {
             try
             {
@@ -144,7 +146,7 @@ namespace WeatherApp
             }
         }
 
-        private Bitmap GetImageBitmapFromUrl(string url)
+        public Bitmap GetImageBitmapFromUrl(string url)
         {
             Bitmap imageBitmap = null;
 

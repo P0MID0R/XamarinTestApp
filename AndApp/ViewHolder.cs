@@ -12,8 +12,10 @@ using Android.Widget;
 
 namespace WeatherApp
 {
-    public interface IFileHelper
+    class ViewHolder : Java.Lang.Object
     {
-        string GetLocalFilePath(string filename);
+        public ImageView Icon { get; set; }
+        public TextView Temp { get; set; }
+        public TextView City { get; set; }
     }
 }

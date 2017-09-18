@@ -22,9 +22,15 @@ namespace WeatherApp
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-           
-            //List<LogList> loglist = JsonConvert.DeserializeObject<List<LogList>>(Intent.Extras.GetString("Log"));
-            this.ListAdapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleListItem1, GetAllData(System.IO.Path.Combine(path, "localAppDB.db")));
+
+            if (GetAllData(System.IO.Path.Combine(path, "localAppDB.db")).Count != 0)
+            {
+                this.ListAdapter = new LogListAdapter(GetAllData(System.IO.Path.Combine(path, "localAppDB.db")));
+                //this.ListAdapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleListItem1, GetAllData(System.IO.Path.Combine(path, "localAppDB.db")));
+            }
+            else 
+                this.ListAdapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleListItem1, new string[] { "Лог пуст" });
+
         }
 
         private List<LogDB> GetAllData(string path)
@@ -38,9 +44,6 @@ namespace WeatherApp
             catch 
             {
                 List<LogDB> outputList = new List<LogDB>();
-                LogDB temp = new LogDB();
-                temp.City = "нет";
-                outputList.Add(temp);
                 return outputList;
             }
         }
