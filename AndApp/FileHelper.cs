@@ -12,7 +12,7 @@ using Android.Views;
 using Android.Widget;
 
 
-namespace AndApp
+namespace WeatherApp
 {
     public class FileHelper : IFileHelper
     {

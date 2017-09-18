@@ -9,9 +9,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: global::Android.Runtime.ResourceDesignerAttribute("AndApp.Resource", IsApplication=true)]
+[assembly: global::Android.Runtime.ResourceDesignerAttribute("WeatherApp.Resource", IsApplication=true)]
 
-namespace AndApp
+namespace WeatherApp
 {
 	
 	
@@ -63,11 +63,20 @@ namespace AndApp
 			// aapt resource value: 0x7f050001
 			public const int Start = 2131034113;
 			
+			// aapt resource value: 0x7f050004
+			public const int imageView1 = 2131034116;
+			
 			// aapt resource value: 0x7f050000
 			public const int inputText = 2131034112;
 			
+			// aapt resource value: 0x7f050003
+			public const int linearLayout1 = 2131034115;
+			
 			// aapt resource value: 0x7f050002
 			public const int log_button = 2131034114;
+			
+			// aapt resource value: 0x7f050005
+			public const int textView1 = 2131034117;
 			
 			static Id()
 			{

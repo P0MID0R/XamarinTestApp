@@ -12,19 +12,19 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 
-namespace AndApp
+namespace WeatherApp
 {
     class LogDB
     {
         [PrimaryKey, AutoIncrement]
         public int ID { get; set; }
-        public string date { get; set; }
+        public DateTime date { get; set; }
         public string City { get; set; }
         public double temp { get; set; }
 
         public override string ToString()
         {
-            return "В " + this.City + " погода " + this.date + " была " + this.temp; ;
+            return "В " + this.City + " погода " + this.date.ToString("dd/MM/yyyy") + " в " + this.date.ToString("HH:mm") + " была " + this.temp; ;
         }
     }
 }

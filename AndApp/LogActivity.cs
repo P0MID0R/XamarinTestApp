@@ -12,7 +12,7 @@ using Android.Views;
 using Android.Widget;
 using SQLite;
 
-namespace AndApp
+namespace WeatherApp
 {
     [Activity(Label = "Log")]
     public class LogActivity : ListActivity
@@ -35,9 +35,13 @@ namespace AndApp
                 var data = db.Query<LogDB>("SELECT * from LogDB");
                 return data;
             }
-            catch (SQLiteException ex)
+            catch 
             {
-                return new List<LogDB>();
+                List<LogDB> outputList = new List<LogDB>();
+                LogDB temp = new LogDB();
+                temp.City = "нет";
+                outputList.Add(temp);
+                return outputList;
             }
         }
     }
