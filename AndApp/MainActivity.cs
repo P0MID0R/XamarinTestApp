@@ -74,26 +74,6 @@ namespace AndApp
 
         }
 
-        public override bool OnKeyUp([GeneratedEnum] Keycode keyCode, KeyEvent e)
-        {
-
-
-            if (keyCode == Android.Views.Keycode.VolumeUp)
-            {
-                Toast.MakeText(ApplicationContext, "Вверх", ToastLength.Long).Show();
-                return true;
-            }
-
-            if (keyCode == Android.Views.Keycode.VolumeDown)
-            {
-
-                Toast.MakeText(ApplicationContext, "Вниз", ToastLength.Long).Show();
-                return true;
-            }
-
-            return base.OnKeyUp(keyCode, e);
-        }
-
         private async Task<string> createDatabase(string path)
         {
             try
