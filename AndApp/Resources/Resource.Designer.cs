@@ -66,6 +66,9 @@ namespace AndApp
 			// aapt resource value: 0x7f050000
 			public const int inputText = 2131034112;
 			
+			// aapt resource value: 0x7f050002
+			public const int log_button = 2131034114;
+			
 			static Id()
 			{
 				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
@@ -96,7 +99,10 @@ namespace AndApp
 		{
 			
 			// aapt resource value: 0x7f040000
-			public const int app_name = 2130968576;
+			public const int Log = 2130968576;
+			
+			// aapt resource value: 0x7f040001
+			public const int app_name = 2130968577;
 			
 			static String()
 			{
