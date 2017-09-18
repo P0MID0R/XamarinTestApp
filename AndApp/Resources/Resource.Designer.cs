@@ -31,6 +31,15 @@ namespace WeatherApp
 		public partial class Attribute
 		{
 			
+			// aapt resource value: 0x7f010001
+			public const int height_weight = 2130771969;
+			
+			// aapt resource value: 0x7f010002
+			public const int use_gradient = 2130771970;
+			
+			// aapt resource value: 0x7f010000
+			public const int width_weight = 2130771968;
+			
 			static Attribute()
 			{
 				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
@@ -60,41 +69,44 @@ namespace WeatherApp
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f050003
-			public const int Start = 2131034115;
+			// aapt resource value: 0x7f050004
+			public const int Start = 2131034116;
 			
-			// aapt resource value: 0x7f050006
-			public const int imageView1 = 2131034118;
-			
-			// aapt resource value: 0x7f050001
-			public const int inputText = 2131034113;
-			
-			// aapt resource value: 0x7f050005
-			public const int linearLayout1 = 2131034117;
+			// aapt resource value: 0x7f050007
+			public const int imageView1 = 2131034119;
 			
 			// aapt resource value: 0x7f050002
-			public const int linearLayout2 = 2131034114;
+			public const int inputText = 2131034114;
 			
-			// aapt resource value: 0x7f050008
-			public const int linearLayout3 = 2131034120;
+			// aapt resource value: 0x7f050006
+			public const int linearLayout1 = 2131034118;
+			
+			// aapt resource value: 0x7f050003
+			public const int linearLayout2 = 2131034115;
+			
+			// aapt resource value: 0x7f050009
+			public const int linearLayout3 = 2131034121;
 			
 			// aapt resource value: 0x7f050000
 			public const int listView1 = 2131034112;
 			
+			// aapt resource value: 0x7f05000c
+			public const int logCity = 2131034124;
+			
 			// aapt resource value: 0x7f05000b
-			public const int logCity = 2131034123;
+			public const int logTemp = 2131034123;
+			
+			// aapt resource value: 0x7f050005
+			public const int log_button = 2131034117;
+			
+			// aapt resource value: 0x7f050008
+			public const int textView1 = 2131034120;
+			
+			// aapt resource value: 0x7f050001
+			public const int textView2 = 2131034113;
 			
 			// aapt resource value: 0x7f05000a
-			public const int logTemp = 2131034122;
-			
-			// aapt resource value: 0x7f050004
-			public const int log_button = 2131034116;
-			
-			// aapt resource value: 0x7f050007
-			public const int textView1 = 2131034119;
-			
-			// aapt resource value: 0x7f050009
-			public const int weatherIcon = 2131034121;
+			public const int weatherIcon = 2131034122;
 			
 			static Id()
 			{
@@ -131,11 +143,11 @@ namespace WeatherApp
 		public partial class String
 		{
 			
-			// aapt resource value: 0x7f040000
-			public const int Log = 2130968576;
-			
 			// aapt resource value: 0x7f040001
-			public const int app_name = 2130968577;
+			public const int Log = 2130968577;
+			
+			// aapt resource value: 0x7f040000
+			public const int app_name = 2130968576;
 			
 			static String()
 			{
@@ -143,6 +155,33 @@ namespace WeatherApp
 			}
 			
 			private String()
+			{
+			}
+		}
+		
+		public partial class Styleable
+		{
+			
+			public static int[] loader_view = new int[] {
+					2130771968,
+					2130771969,
+					2130771970};
+			
+			// aapt resource value: 1
+			public const int loader_view_height_weight = 1;
+			
+			// aapt resource value: 2
+			public const int loader_view_use_gradient = 2;
+			
+			// aapt resource value: 0
+			public const int loader_view_width_weight = 0;
+			
+			static Styleable()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
+			
+			private Styleable()
 			{
 			}
 		}

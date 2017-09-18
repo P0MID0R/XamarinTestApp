@@ -17,16 +17,15 @@ namespace WeatherApp
     [Activity(Label = "Log")]
     public class LogActivity : ListActivity
     {
-        string path = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
+        string path = System.IO.Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "localAppDB.db");
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
 
-            if (GetAllData(System.IO.Path.Combine(path, "localAppDB.db")).Count != 0)
+            if (GetAllData(path).Count != 0)
             {
-                this.ListAdapter = new LogListAdapter(GetAllData(System.IO.Path.Combine(path, "localAppDB.db")));
-                //this.ListAdapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleListItem1, GetAllData(System.IO.Path.Combine(path, "localAppDB.db")));
+                this.ListAdapter = new LogListAdapter(GetAllData(path));
             }
             else 
                 this.ListAdapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleListItem1, new string[] { "Лог пуст" });

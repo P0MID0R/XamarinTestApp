@@ -25,7 +25,7 @@ namespace WeatherApp
 
         public override string ToString()
         {
-            return "В " + this.City + " погода " + this.date.ToString("dd/MM/yyyy") + " в " + this.date.ToString("HH:mm") + " была " + this.temp; ;
+            return "В " + this.City + " weather " + this.date.ToString("dd/MM/yyyy") + " in " + this.date.ToString("HH:mm") + " was " + this.temp; ;
         }
     }
 }
