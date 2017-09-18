@@ -15,7 +15,7 @@ using SQLite;
 namespace AndApp
 {
     [Activity(Label = "Log")]
-    public class Log : ListActivity
+    public class LogActivity : ListActivity
     {
         string path = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
 

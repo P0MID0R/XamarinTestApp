@@ -68,7 +68,7 @@ namespace AndApp
 
             Log_button.Click += (object sender, EventArgs e) =>
             {
-                var callLog = new Intent(this, typeof(Log));
+                var callLog = new Intent(this, typeof(LogActivity));
                 StartActivity(callLog);
             };
 
