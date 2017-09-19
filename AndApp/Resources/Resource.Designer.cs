@@ -31,6 +31,24 @@ namespace WeatherApp
 		public partial class Attribute
 		{
 			
+			// aapt resource value: 0x7f010006
+			public const int cpb_animationDuration = 2130771974;
+			
+			// aapt resource value: 0x7f010003
+			public const int cpb_color = 2130771971;
+			
+			// aapt resource value: 0x7f010007
+			public const int cpb_text = 2130771975;
+			
+			// aapt resource value: 0x7f010008
+			public const int cpb_textColor = 2130771976;
+			
+			// aapt resource value: 0x7f010005
+			public const int cpb_zoomInScale = 2130771973;
+			
+			// aapt resource value: 0x7f010004
+			public const int cpb_zoomOutScale = 2130771972;
+			
 			// aapt resource value: 0x7f010001
 			public const int height_weight = 2130771969;
 			
@@ -55,6 +73,9 @@ namespace WeatherApp
 			
 			// aapt resource value: 0x7f020000
 			public const int Icon = 2130837504;
+			
+			// aapt resource value: 0x7f020001
+			public const int round_button = 2130837505;
 			
 			static Drawable()
 			{
@@ -161,6 +182,32 @@ namespace WeatherApp
 		
 		public partial class Styleable
 		{
+			
+			public static int[] CircularPulsingButton = new int[] {
+					2130771971,
+					2130771972,
+					2130771973,
+					2130771974,
+					2130771975,
+					2130771976};
+			
+			// aapt resource value: 3
+			public const int CircularPulsingButton_cpb_animationDuration = 3;
+			
+			// aapt resource value: 0
+			public const int CircularPulsingButton_cpb_color = 0;
+			
+			// aapt resource value: 4
+			public const int CircularPulsingButton_cpb_text = 4;
+			
+			// aapt resource value: 5
+			public const int CircularPulsingButton_cpb_textColor = 5;
+			
+			// aapt resource value: 2
+			public const int CircularPulsingButton_cpb_zoomInScale = 2;
+			
+			// aapt resource value: 1
+			public const int CircularPulsingButton_cpb_zoomOutScale = 1;
 			
 			public static int[] loader_view = new int[] {
 					2130771968,

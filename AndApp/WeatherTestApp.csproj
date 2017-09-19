@@ -54,6 +54,9 @@
     <BundleAssemblies>false</BundleAssemblies>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CircularPulsingButton, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\CircularPulsingButton.2.0.0\lib\CircularPulsingButton.dll</HintPath>
+    </Reference>
     <Reference Include="LoaderView, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Xam.Plugins.Android.LoaderView.1.1.1\lib\MonoAndroid\LoaderView.dll</HintPath>
     </Reference>
@@ -145,6 +148,9 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-hdpi\Icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\round_button.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
