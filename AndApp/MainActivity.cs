@@ -18,6 +18,7 @@ using System.Threading.Tasks;
 using Android.Locations;
 using System.Linq;
 using Android.Graphics;
+using Android.Preferences;
 
 namespace WeatherApp
 {
@@ -40,10 +41,16 @@ namespace WeatherApp
 
             connectDatabase(path);
 
-            if (!showResult("Minsk", GetWeatherData("Minsk")))
+            ISharedPreferences d = PreferenceManager.GetDefaultSharedPreferences(this);
+            string defaultCity = d.GetString("pref_default_country", "");
+
+            if (defaultCity != "")
             {
-                Toast.MakeText(ApplicationContext, "Error", ToastLength.Long).Show();
+                if (!showResult(defaultCity, GetWeatherData(defaultCity)))
+                    Toast.MakeText(ApplicationContext, "Error", ToastLength.Long).Show();
             }
+            else
+                Toast.MakeText(ApplicationContext, "Please select default city in options", ToastLength.Long).Show();
 
             StartButton.Click += (object sender, EventArgs e) =>
            {
@@ -75,6 +82,12 @@ namespace WeatherApp
                 case Resource.Id.Log_button:
                     {
                         var callLog = new Intent(this, typeof(LogActivity));
+                        StartActivity(callLog);
+                        return true;
+                    }
+                case Resource.Id.settings_button:
+                    {
+                        var callLog = new Intent(this, typeof(SettingsActivity));
                         StartActivity(callLog);
                         return true;
                     }

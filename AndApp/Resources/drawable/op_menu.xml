@@ -1,9 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
   <!--///showAsAction="always" ///-->
-  <item android:id="@+id/action_settings" android:title="Menu1" showAsAction="always" />
-  <item android:id="@+id/action_settings1" android:title="Menu2" showAsAction="always" />
-  <item android:id="@+id/action_settings2" android:title="Menu3" showAsAction="always" />
+  <item android:id="@+id/settings_button" android:title="Settings" showAsAction="always" />
   <!--/android:showAsAction="ifRoom"/-->
   <item android:id="@+id/Log_button" android:title="Log" android:showAsAction="ifRoom" />
 </menu>

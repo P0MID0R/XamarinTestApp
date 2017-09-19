@@ -80,6 +80,9 @@ namespace WeatherApp
 			// aapt resource value: 0x7f020002
 			public const int round_button = 2130837506;
 			
+			// aapt resource value: 0x7f020003
+			public const int Settings = 2130837507;
+			
 			static Drawable()
 			{
 				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
@@ -93,20 +96,11 @@ namespace WeatherApp
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f05000f
-			public const int Log_button = 2131034127;
+			// aapt resource value: 0x7f05000d
+			public const int Log_button = 2131034125;
 			
 			// aapt resource value: 0x7f050004
 			public const int Start = 2131034116;
-			
-			// aapt resource value: 0x7f05000c
-			public const int action_settings = 2131034124;
-			
-			// aapt resource value: 0x7f05000d
-			public const int action_settings1 = 2131034125;
-			
-			// aapt resource value: 0x7f05000e
-			public const int action_settings2 = 2131034126;
 			
 			// aapt resource value: 0x7f050006
 			public const int imageView1 = 2131034118;
@@ -131,6 +125,9 @@ namespace WeatherApp
 			
 			// aapt resource value: 0x7f05000a
 			public const int logTemp = 2131034122;
+			
+			// aapt resource value: 0x7f05000c
+			public const int settings_button = 2131034124;
 			
 			// aapt resource value: 0x7f050007
 			public const int textView1 = 2131034119;
