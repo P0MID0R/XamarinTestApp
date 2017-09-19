@@ -42,7 +42,7 @@ namespace WeatherApp
             connectDatabase(path);
 
             ISharedPreferences d = PreferenceManager.GetDefaultSharedPreferences(this);
-            string defaultCity = d.GetString("pref_default_country", "");
+            string defaultCity = d.GetString("pref_default_country", (string)GetCurrentLocationNetwork()["city"]);
 
             if (defaultCity != "")
             {
@@ -129,8 +129,8 @@ namespace WeatherApp
         {
             try
             {
-                string key = "a4dcc6d4ef65f67ade104ecb98972b41";
-                string Url = "http://api.openweathermap.org/data/2.5/weather?q=" + City + "&appid=" + key;
+                string OWAPIkey = "a4dcc6d4ef65f67ade104ecb98972b41";                
+                string Url = "http://api.openweathermap.org/data/2.5/weather?q=" + City + "&appid=" + OWAPIkey;
                 HttpClient client = new HttpClient();
                 var response = client.GetStringAsync(Url).Result;
                 return JObject.Parse(response);
@@ -139,6 +139,14 @@ namespace WeatherApp
             {
                 return null;
             }
+        }
+
+        public JObject GetCurrentLocationNetwork() //free http://ip-api.com api
+        {
+            string Url = "http://ip-api.com/json";
+            HttpClient client = new HttpClient();
+            var response = client.GetStringAsync(Url).Result;
+            return JObject.Parse(response);
         }
 
         public bool showResult(string InputCity, JObject JsonInput)
