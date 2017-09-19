@@ -29,14 +29,16 @@
             android:text="Start"
             android:id="@+id/Start"
             android:gravity="center"
-            android:layout_width="100.0dp"
-            android:layout_height="match_parent" />
+            android:layout_width="80.0dp"
+            android:layout_height="80.0dp"
+            android:layout_marginRight="10.0dp" />
         <Button
             android:text="Log"
             android:id="@+id/log_button"
             android:gravity="center"
-            android:layout_width="100.0dp"
-            android:layout_height="match_parent" />
+            android:layout_width="80.0dp"
+            android:layout_height="80.0dp"
+            android:layout_marginLeft="10.0dp" />
     </LinearLayout>
     <LinearLayout
         android:orientation="horizontal"
