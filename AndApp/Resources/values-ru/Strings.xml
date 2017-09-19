@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="Log">Лог</string>
+  <string name="app_name">Погода</string>
+  <string name="start">Старт</string>
+  <string name="log">лог</string>
+  <string name="settings">Настройки</string>
+  <string name="enterCity">Укажите город</string>
+  <string name="settingsTite">Настройки</string>
+  <string name="prop1">Город по-умолчанию</string>
+  <string name="prop2">Выберите город по-умолчанию</string>
+  <string name="error_message">Ошибка</string>
+  <string name="netError">Нет доступа к сети</string>
+  <string name="errorDB">Ошибка БД</string>
+  <string name="currentToast">{0} {1} ({2})</string>
+  <string name="selectDC">Пожалуйста укажите город по-умолчанию в настройках</string>
+  <string name="LogDBtoString">"В {0} погода {1} в {2} была {3}</string>
+  <string name="emptyLog">Лог пуст</string>
+</resources>

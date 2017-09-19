@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
   <!--///showAsAction="always" ///-->
-  <item android:id="@+id/settings_button" android:title="Settings" showAsAction="always" />
+  <item android:id="@+id/settings_button" android:title="@string/settings" showAsAction="always" />
   <!--/android:showAsAction="ifRoom"/-->
-  <item android:id="@+id/Log_button" android:title="Log" android:showAsAction="ifRoom" />
+  <item android:id="@+id/Log_button" android:title="@string/log" android:showAsAction="ifRoom" />
 </menu>

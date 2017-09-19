@@ -2,4 +2,18 @@
 <resources>
   <string name="Log">Log</string>
   <string name="app_name">Weather</string>
+  <string name="start">Start</string>
+  <string name="log">log</string>
+  <string name="settings">Settings</string>
+  <string name="enterCity">Укажите город</string>
+  <string name="settingsTite">Ыуеештпы</string>
+  <string name="prop1">Default City</string>
+  <string name="prop2">Choose default City</string>
+  <string name="error_message">Error</string>
+  <string name="netError">No network connection</string>
+  <string name="errorDB">Database error</string>
+  <string name="currentToast">{0} {1} ({2})</string>
+  <string name="selectDC">Please select default city in options</string>
+  <string name="LogDBtoString">"In {0} weather {1} in {2} was {3}</string>
+  <string name="emptyLog">Log is empty</string>
 </resources>

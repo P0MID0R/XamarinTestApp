@@ -14,7 +14,7 @@ using SQLite;
 
 namespace WeatherApp
 {
-    [Activity(Label = "Log")]
+    [Activity(Label = "@string/Log", Theme = "@android:style/Theme.Material")]
     public class LogActivity : ListActivity
     {
         string path = System.IO.Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "localAppDB.db");
@@ -28,7 +28,7 @@ namespace WeatherApp
                 this.ListAdapter = new LogListAdapter(GetAllData(path));
             }
             else 
-                this.ListAdapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleListItem1, new string[] { "Лог пуст" });
+                this.ListAdapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleListItem1, new string[] { "@string/emptyLog" });
 
         }
 
@@ -38,7 +38,7 @@ namespace WeatherApp
             {
                 var db = new SQLiteConnection(path);
                 var data = db.Query<LogDB>("SELECT * from LogDB");
-                return data;
+                return data.AsEnumerable().Reverse().ToList();
             }
             catch 
             {

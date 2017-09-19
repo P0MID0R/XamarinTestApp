@@ -15,6 +15,13 @@ using Android.Graphics;
 
 namespace WeatherApp
 {
+    class ViewHolder : Java.Lang.Object
+    {
+        public ImageView Icon { get; set; }
+        public TextView Temp { get; set; }
+        public TextView City { get; set; }
+    }
+
     class LogListAdapter : BaseAdapter<LogDB>
     {
         List<LogDB> logs;

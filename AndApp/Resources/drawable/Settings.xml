@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
   <PreferenceCategory
-      android:title="Settings"
+      android:title="@string/settingsTite"
       android:key="pref_key_storage_settings">
     <EditTextPreference
-        android:title="Default Country"
+        android:title="@string/prop1"
         android:key="pref_default_country"
-        android:summary="Choose your default country"
+        android:summary="@string/prop2"
         />
   </PreferenceCategory>
 </PreferenceScreen>
