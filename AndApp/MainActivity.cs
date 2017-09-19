@@ -35,7 +35,7 @@ namespace WeatherApp
             SetContentView(Resource.Layout.Main);
 
             Button StartButton = FindViewById<Button>(Resource.Id.Start);
-            Button Log_button = FindViewById<Button>(Resource.Id.log_button);
+            Button Log_button = FindViewById<Button>(Resource.Id.Log_button);
             EditText inputText = FindViewById<EditText>(Resource.Id.inputText);
 
             connectDatabase(path);
@@ -60,13 +60,26 @@ namespace WeatherApp
                    Toast.MakeText(ApplicationContext, "Error", ToastLength.Long).Show();
                }
            };
+        }
 
-            Log_button.Click += (object sender, EventArgs e) =>
+        public override bool OnCreateOptionsMenu(IMenu menu)
+        {
+            MenuInflater.Inflate(Resource.Drawable.op_menu, menu);
+            return true;
+        }
+
+        public override bool OnOptionsItemSelected(IMenuItem item)
+        {
+            switch (item.ItemId)
             {
-                var callLog = new Intent(this, typeof(LogActivity));
-                StartActivity(callLog);
-            };
-
+                case Resource.Id.Log_button:
+                    {
+                        var callLog = new Intent(this, typeof(LogActivity));
+                        StartActivity(callLog);
+                        return true;
+                    }
+            }
+            return base.OnOptionsItemSelected(item);
         }
 
         private string connectDatabase(string path)
