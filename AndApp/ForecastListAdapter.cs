@@ -99,16 +99,23 @@ namespace WeatherApp
         {
             Bitmap imageBitmap = null;
 
-            using (var webClient = new WebClient())
+            try
             {
-                var imageBytes = webClient.DownloadData(url);
-                if (imageBytes != null && imageBytes.Length > 0)
+                using (var webClient = new WebClient())
                 {
-                    imageBitmap = BitmapFactory.DecodeByteArray(imageBytes, 0, imageBytes.Length);
+                    var imageBytes = webClient.DownloadData(url);
+                    if (imageBytes != null && imageBytes.Length > 0)
+                    {
+                        imageBitmap = BitmapFactory.DecodeByteArray(imageBytes, 0, imageBytes.Length);
+                    }
                 }
-            }
 
-            return imageBitmap;
+                return imageBitmap;
+            }
+            catch
+            {
+                return imageBitmap;
+            }
         }
     }
 }

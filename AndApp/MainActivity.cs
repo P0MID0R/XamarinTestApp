@@ -24,7 +24,8 @@ using Android.Content.PM;
 namespace WeatherApp
 {
     [Activity(Label = "@string/app_name",
-        Icon = "@drawable/Icon", MainLauncher = true,
+        Icon = "@drawable/Icon",
+        MainLauncher = true,
         Theme = "@android:style/Theme.Material",
         ConfigurationChanges = ConfigChanges.Locale,
         ScreenOrientation = ScreenOrientation.Portrait)]
@@ -186,7 +187,11 @@ namespace WeatherApp
                 var response = client.GetStringAsync(Url).Result;
 
                 var forecastData = JObject.Parse(response);
-                Forecast tempForecast = new Forecast();
+                Forecast tempForecast = new Forecast {
+                    temp6 = "-",
+                    temp12 = "-",
+                    temp18 = "-"
+                };
 
                 for (var i = 0; i <= 35; i++)
                 {
@@ -197,6 +202,7 @@ namespace WeatherApp
                     if (tempdate.TimeOfDay.Hours == 6)
                     {
                         string JSONtemp = (string)forecastData["list"][i]["main"]["temp"];
+                        tempForecast.icon = (string)forecastData["list"][i]["weather"][0]["icon"];
                         tempForecast.temp6 = (Math.Round(Convert.ToDouble(JSONtemp.Replace('.', ',')) - 273.15)).ToString();
                     }
                     if (tempdate.TimeOfDay.Hours == 12)
@@ -208,8 +214,9 @@ namespace WeatherApp
                     if (tempdate.TimeOfDay.Hours == 18)
                     {
                         string JSONtemp = (string)forecastData["list"][i]["main"]["temp"];
+                        tempForecast.icon = (string)forecastData["list"][i]["weather"][0]["icon"];
                         tempForecast.temp18 = (Math.Round(Convert.ToDouble(JSONtemp.Replace('.', ',')) - 273.15)).ToString();
-                        tempForecast.date = tempdate.Day.ToString() + "." + tempdate.Month.ToString();
+                        tempForecast.date = tempdate.Day.ToString("D2") + "." + tempdate.Month.ToString("D2"); ;
                         forecastList.Add(tempForecast);
                         tempForecast = new Forecast();
                     }

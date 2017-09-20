@@ -130,7 +130,7 @@
                     android:layout_height="match_parent"
                     android:id="@+id/linearLayout9">
                     <TextView
-                        android:text="24:00"
+                        android:text="18:00"
                         android:textAppearance="?android:attr/textAppearanceSmall"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
