@@ -61,6 +61,9 @@ namespace WeatherApp
 			// aapt resource value: 0x7f040009
 			public const int abc_slide_out_top = 2130968585;
 			
+			// aapt resource value: 0x7f04000a
+			public const int loading = 2130968586;
+			
 			static Animation()
 			{
 				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
@@ -1434,17 +1437,77 @@ namespace WeatherApp
 			// aapt resource value: 0x7f020044
 			public const int Icon = 2130837572;
 			
-			// aapt resource value: 0x7f020048
-			public const int notification_template_icon_bg = 2130837576;
-			
 			// aapt resource value: 0x7f020045
-			public const int op_menu = 2130837573;
+			public const int loading0000 = 2130837573;
 			
 			// aapt resource value: 0x7f020046
-			public const int round_button = 2130837574;
+			public const int loading0001 = 2130837574;
 			
 			// aapt resource value: 0x7f020047
-			public const int Settings = 2130837575;
+			public const int loading0002 = 2130837575;
+			
+			// aapt resource value: 0x7f020048
+			public const int loading0003 = 2130837576;
+			
+			// aapt resource value: 0x7f020049
+			public const int loading0004 = 2130837577;
+			
+			// aapt resource value: 0x7f02004a
+			public const int loading0005 = 2130837578;
+			
+			// aapt resource value: 0x7f02004b
+			public const int loading0006 = 2130837579;
+			
+			// aapt resource value: 0x7f02004c
+			public const int loading0007 = 2130837580;
+			
+			// aapt resource value: 0x7f02004d
+			public const int loading0008 = 2130837581;
+			
+			// aapt resource value: 0x7f02004e
+			public const int loading0009 = 2130837582;
+			
+			// aapt resource value: 0x7f02004f
+			public const int loading0010 = 2130837583;
+			
+			// aapt resource value: 0x7f020050
+			public const int loading0011 = 2130837584;
+			
+			// aapt resource value: 0x7f020051
+			public const int loading0012 = 2130837585;
+			
+			// aapt resource value: 0x7f020052
+			public const int loading0013 = 2130837586;
+			
+			// aapt resource value: 0x7f020053
+			public const int loading0014 = 2130837587;
+			
+			// aapt resource value: 0x7f020054
+			public const int loading0015 = 2130837588;
+			
+			// aapt resource value: 0x7f020055
+			public const int loading0016 = 2130837589;
+			
+			// aapt resource value: 0x7f020056
+			public const int loading0017 = 2130837590;
+			
+			// aapt resource value: 0x7f020057
+			public const int loading0018 = 2130837591;
+			
+			// aapt resource value: 0x7f020058
+			public const int loading0019 = 2130837592;
+			
+			// aapt resource value: 0x7f02005c
+			public const int notification_template_icon_bg = 2130837596;
+			
+			// aapt resource value: 0x7f020059
+			public const int op_menu = 2130837593;
+			
+			// aapt resource value: 0x7f02005a
+			public const int round_button = 2130837594;
+			
+			// aapt resource value: 0x7f02005b
+			public const int Settings = 2130837595;
 			
 			static Drawable()
 			{
@@ -1462,8 +1525,8 @@ namespace WeatherApp
 			// aapt resource value: 0x7f0b0068
 			public const int ForecastIcon = 2131427432;
 			
-			// aapt resource value: 0x7f0b007b
-			public const int Log_button = 2131427451;
+			// aapt resource value: 0x7f0b007c
+			public const int Log_button = 2131427452;
 			
 			// aapt resource value: 0x7f0b0054
 			public const int Start = 2131427412;
@@ -1669,6 +1732,9 @@ namespace WeatherApp
 			// aapt resource value: 0x7f0b0028
 			public const int list_item = 2131427368;
 			
+			// aapt resource value: 0x7f0b007a
+			public const int loading_animation = 2131427450;
+			
 			// aapt resource value: 0x7f0b0079
 			public const int logCity = 2131427449;
 			
@@ -1750,8 +1816,8 @@ namespace WeatherApp
 			// aapt resource value: 0x7f0b004f
 			public const int select_dialog_listview = 2131427407;
 			
-			// aapt resource value: 0x7f0b007a
-			public const int settings_button = 2131427450;
+			// aapt resource value: 0x7f0b007b
+			public const int settings_button = 2131427451;
 			
 			// aapt resource value: 0x7f0b003a
 			public const int shortcut = 2131427386;
@@ -1993,7 +2059,10 @@ namespace WeatherApp
 			public const int select_dialog_singlechoice_material = 2130903079;
 			
 			// aapt resource value: 0x7f030028
-			public const int support_simple_spinner_dropdown_item = 2130903080;
+			public const int Splash = 2130903080;
+			
+			// aapt resource value: 0x7f030029
+			public const int support_simple_spinner_dropdown_item = 2130903081;
 			
 			static Layout()
 			{
@@ -2011,8 +2080,8 @@ namespace WeatherApp
 			// aapt resource value: 0x7f050015
 			public const int Log = 2131034133;
 			
-			// aapt resource value: 0x7f050022
-			public const int LogDBtoString = 2131034146;
+			// aapt resource value: 0x7f050023
+			public const int LogDBtoString = 2131034147;
 			
 			// aapt resource value: 0x7f050000
 			public const int abc_action_bar_home_description = 2131034112;
@@ -2074,44 +2143,47 @@ namespace WeatherApp
 			// aapt resource value: 0x7f050014
 			public const int app_name = 2131034132;
 			
-			// aapt resource value: 0x7f050020
-			public const int currentToast = 2131034144;
-			
-			// aapt resource value: 0x7f050023
-			public const int emptyLog = 2131034147;
-			
-			// aapt resource value: 0x7f050019
-			public const int enterCity = 2131034137;
-			
-			// aapt resource value: 0x7f05001f
-			public const int errorDB = 2131034143;
-			
-			// aapt resource value: 0x7f05001d
-			public const int error_message = 2131034141;
-			
-			// aapt resource value: 0x7f050017
-			public const int log = 2131034135;
-			
-			// aapt resource value: 0x7f05001e
-			public const int netError = 2131034142;
-			
-			// aapt resource value: 0x7f05001b
-			public const int prop1 = 2131034139;
-			
-			// aapt resource value: 0x7f05001c
-			public const int prop2 = 2131034140;
-			
 			// aapt resource value: 0x7f050021
-			public const int selectDC = 2131034145;
+			public const int currentToast = 2131034145;
 			
-			// aapt resource value: 0x7f050018
-			public const int settings = 2131034136;
+			// aapt resource value: 0x7f050024
+			public const int emptyLog = 2131034148;
 			
 			// aapt resource value: 0x7f05001a
-			public const int settingsTite = 2131034138;
+			public const int enterCity = 2131034138;
+			
+			// aapt resource value: 0x7f050020
+			public const int errorDB = 2131034144;
+			
+			// aapt resource value: 0x7f05001e
+			public const int error_message = 2131034142;
+			
+			// aapt resource value: 0x7f050018
+			public const int log = 2131034136;
+			
+			// aapt resource value: 0x7f05001f
+			public const int netError = 2131034143;
+			
+			// aapt resource value: 0x7f05001c
+			public const int prop1 = 2131034140;
+			
+			// aapt resource value: 0x7f05001d
+			public const int prop2 = 2131034141;
+			
+			// aapt resource value: 0x7f050022
+			public const int selectDC = 2131034146;
+			
+			// aapt resource value: 0x7f050019
+			public const int settings = 2131034137;
+			
+			// aapt resource value: 0x7f05001b
+			public const int settingsTite = 2131034139;
 			
 			// aapt resource value: 0x7f050016
 			public const int start = 2131034134;
+			
+			// aapt resource value: 0x7f050017
+			public const int start_hint = 2131034135;
 			
 			// aapt resource value: 0x7f050013
 			public const int status_bar_notification_info_overflow = 2131034131;

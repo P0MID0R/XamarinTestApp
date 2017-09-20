@@ -13,7 +13,7 @@ using Android.Preferences;
 
 namespace WeatherApp
 {
-    [Activity(Label = "Settings", Theme = "@android:style/Theme.Material")]
+    [Activity(Label = "@string/settings", Theme = "@android:style/Theme.Material")]
     public class SettingsActivity : PreferenceActivity
     {
         protected override void OnCreate(Bundle savedInstanceState)

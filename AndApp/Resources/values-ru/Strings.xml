@@ -3,10 +3,11 @@
   <string name="Log">Лог</string>
   <string name="app_name">Погода</string>
   <string name="start">Старт</string>
+  <string name="start_hint">Введите название города</string>
   <string name="log">лог</string>
   <string name="settings">Настройки</string>
   <string name="enterCity">Укажите город</string>
-  <string name="settingsTite">Настройки</string>
+  <string name="settingsTite">Основные настройки</string>
   <string name="prop1">Город по-умолчанию</string>
   <string name="prop2">Выберите город по-умолчанию</string>
   <string name="error_message">Ошибка</string>

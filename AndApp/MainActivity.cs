@@ -1,31 +1,26 @@
-﻿using Android.App;
+﻿using System;
+using System.Net.Http;
+using System.Net;
+using System.Collections.Generic;
+
+using Android.App;
 using Android.Widget;
 using Android.Content;
 using Android.OS;
-using System;
-using System.Net.Http;
-using System.Net;
-using System.Threading;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using Android.Runtime;
-using Android.Views;
-using Android.Media;
-using System.Collections.Generic;
-using SQLite;
-using SQLitePCL;
-using System.Threading.Tasks;
-using Android.Locations;
-using System.Linq;
 using Android.Graphics;
 using Android.Preferences;
 using Android.Content.PM;
+using Android.Views;
+using Android.Views.InputMethods;
+
+using SQLite;
+using Newtonsoft.Json.Linq;
 
 namespace WeatherApp
 {
     [Activity(Label = "@string/app_name",
         Icon = "@drawable/Icon",
-        MainLauncher = true,
+        MainLauncher = false,
         Theme = "@android:style/Theme.Material",
         ConfigurationChanges = ConfigChanges.Locale,
         ScreenOrientation = ScreenOrientation.Portrait)]
@@ -40,9 +35,7 @@ namespace WeatherApp
 
             base.OnCreate(savedInstanceState);
 
-            // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.Main);
-
 
             Button StartButton = FindViewById<Button>(Resource.Id.Start);
             Button Log_button = FindViewById<Button>(Resource.Id.Log_button);
@@ -52,26 +45,28 @@ namespace WeatherApp
             AppStart();
 
             StartButton.Click += (object sender, EventArgs e) =>
-           {
-               try
                {
-                   if (showResult(inputText.Text, GetWeatherData(inputText.Text)))
+                   try
                    {
-                       forecastView.Adapter = new ForecastListAdapter(GetForecastData(inputText.Text));
+                       InputMethodManager imm = (InputMethodManager)GetSystemService(Context.InputMethodService);
+                       if (showResult(inputText.Text, GetWeatherData(inputText.Text)))
+                       {
+                           forecastView.Adapter = new ForecastListAdapter(GetForecastData(inputText.Text));
+                       }
+                       else
+                       {
+                           forecastView.Adapter = new ForecastListAdapter(new List<Forecast>());
+                           Toast.MakeText(ApplicationContext, GetString(Resource.String.error_message), ToastLength.Long).Show();
+                       }
+
+                       imm.HideSoftInputFromWindow(inputText.WindowToken, 0);
+                       inputText.Text = string.Empty;
                    }
-                   else
+                   catch
                    {
-                       forecastView.Adapter = new ForecastListAdapter(new List<Forecast>());
                        Toast.MakeText(ApplicationContext, GetString(Resource.String.error_message), ToastLength.Long).Show();
                    }
-
-                   inputText.Text = string.Empty;
-               }
-               catch
-               {
-                   Toast.MakeText(ApplicationContext, GetString(Resource.String.error_message), ToastLength.Long).Show();
-               }
-           };
+               };
         }
 
         private void AppStart()
@@ -189,6 +184,7 @@ namespace WeatherApp
                 var forecastData = JObject.Parse(response);
                 Forecast tempForecast = new Forecast
                 {
+                    icon = "",
                     temp6 = "-",
                     temp12 = "-",
                     temp18 = "-"
