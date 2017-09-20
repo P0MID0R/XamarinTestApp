@@ -15,6 +15,7 @@ using Android.Views.InputMethods;
 
 using SQLite;
 using Newtonsoft.Json.Linq;
+using System.Threading.Tasks;
 
 namespace WeatherApp
 {
@@ -42,22 +43,16 @@ namespace WeatherApp
             EditText inputText = FindViewById<EditText>(Resource.Id.inputText);
             ListView forecastView = FindViewById<ListView>(Resource.Id.forecastView);
 
-            AppStart();
+            AppStartAsync();
 
-            StartButton.Click += (object sender, EventArgs e) =>
+            StartButton.Click += async (object sender, EventArgs e) =>
                {
                    try
                    {
                        InputMethodManager imm = (InputMethodManager)GetSystemService(Context.InputMethodService);
-                       if (showResult(inputText.Text, GetWeatherData(inputText.Text)))
-                       {
-                           forecastView.Adapter = new ForecastListAdapter(GetForecastData(inputText.Text));
-                       }
-                       else
-                       {
-                           forecastView.Adapter = new ForecastListAdapter(new List<Forecast>());
-                           Toast.MakeText(ApplicationContext, GetString(Resource.String.error_message), ToastLength.Long).Show();
-                       }
+
+                       showResultAsync(inputText.Text, GetWeatherData(inputText.Text));
+                       forecastView.Adapter = new ForecastListAdapter(await GetForecastData(inputText.Text));
 
                        imm.HideSoftInputFromWindow(inputText.WindowToken, 0);
                        inputText.Text = string.Empty;
@@ -69,7 +64,7 @@ namespace WeatherApp
                };
         }
 
-        private void AppStart()
+        private async Task AppStartAsync()
         {
             try
             {
@@ -82,13 +77,15 @@ namespace WeatherApp
 
                 if (defaultCity != "")
                 {
-
-                    if (showResult(defaultCity, GetWeatherData(defaultCity)))
+                    try
                     {
-                        forecastView.Adapter = new ForecastListAdapter(GetForecastData(defaultCity));
+                        showResultAsync(defaultCity, GetWeatherData(defaultCity));
+                        forecastView.Adapter = new ForecastListAdapter(await GetForecastData(defaultCity));
                     }
-                    else
+                    catch
+                    {
                         Toast.MakeText(ApplicationContext, GetString(Resource.String.netError), ToastLength.Long).Show();
+                    }
                 }
                 else
                     Toast.MakeText(ApplicationContext, GetString(Resource.String.selectDC), ToastLength.Long).Show();
@@ -125,7 +122,7 @@ namespace WeatherApp
             return base.OnOptionsItemSelected(item);
         }
 
-        private string connectDatabase(string path)
+        private async Task<string> connectDatabase(string path)
         {
             try
             {
@@ -141,12 +138,12 @@ namespace WeatherApp
             }
         }
 
-        private string insertData(LogDB data, string path)
+        private async Task<string> insertData(LogDB data, string path)
         {
             try
             {
                 var db = new SQLiteAsyncConnection(path);
-                db.InsertAsync(data);
+                await db.InsertAsync(data);
                 return null;
             }
             catch
@@ -171,7 +168,7 @@ namespace WeatherApp
             }
         }
 
-        public List<Forecast> GetForecastData(string City)
+        public async Task<List<Forecast>> GetForecastData(string City)
         {
             try
             {
@@ -221,7 +218,7 @@ namespace WeatherApp
             }
             catch
             {
-                return null;
+                return new List<Forecast>();
             }
         }
 
@@ -233,7 +230,7 @@ namespace WeatherApp
             return JObject.Parse(response);
         }
 
-        public bool showResult(string InputCity, JObject JsonInput)
+        public async Task<bool> showResultAsync(string InputCity, JObject JsonInput)
         {
 
             try
@@ -262,7 +259,7 @@ namespace WeatherApp
                     temp = Math.Round(Convert.ToDouble(JSONtemp.Replace('.', ',')) - 273.15),
                     icon = (string)JsonInput["weather"][0]["icon"]
                 };
-                insertData(currentdata, path);
+                await insertData(currentdata, path);
                 return true;
             }
             catch

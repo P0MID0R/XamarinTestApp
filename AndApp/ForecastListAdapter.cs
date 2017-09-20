@@ -11,6 +11,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.Graphics;
+using System.Threading.Tasks;
 
 
 namespace WeatherApp
@@ -37,10 +38,16 @@ namespace WeatherApp
     class ForecastListAdapter : BaseAdapter<Forecast>
     {
         List<Forecast> forecasts;
+        private Task<List<Forecast>> task;
 
         public ForecastListAdapter(List<Forecast> forecasts)
         {
             this.forecasts = forecasts;
+        }
+
+        public ForecastListAdapter(Task<List<Forecast>> task)
+        {
+            this.task = task;
         }
 
         public override Forecast this[int position]
