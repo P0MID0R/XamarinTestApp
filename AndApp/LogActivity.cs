@@ -29,7 +29,6 @@ namespace WeatherApp
             }
             else 
                 this.ListAdapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleListItem1, new string[] { "@string/emptyLog" });
-
         }
 
         private List<LogDB> GetAllData(string path)

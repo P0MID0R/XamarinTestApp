@@ -187,7 +187,8 @@ namespace WeatherApp
                 var response = client.GetStringAsync(Url).Result;
 
                 var forecastData = JObject.Parse(response);
-                Forecast tempForecast = new Forecast {
+                Forecast tempForecast = new Forecast
+                {
                     temp6 = "-",
                     temp12 = "-",
                     temp18 = "-"
@@ -197,7 +198,6 @@ namespace WeatherApp
                 {
                     DateTime tempdate = DateTime.ParseExact((string)forecastData["list"][i]["dt_txt"], "yyyy-MM-dd HH:mm:ss",
                                        System.Globalization.CultureInfo.InvariantCulture);
-
 
                     if (tempdate.TimeOfDay.Hours == 6)
                     {
@@ -220,9 +220,7 @@ namespace WeatherApp
                         forecastList.Add(tempForecast);
                         tempForecast = new Forecast();
                     }
-
                 }
-
                 return forecastList;
             }
             catch
@@ -290,7 +288,6 @@ namespace WeatherApp
                     imageBitmap = BitmapFactory.DecodeByteArray(imageBytes, 0, imageBytes.Length);
                 }
             }
-
             return imageBitmap;
         }
     }

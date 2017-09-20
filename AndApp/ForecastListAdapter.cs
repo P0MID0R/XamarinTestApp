@@ -26,7 +26,7 @@ namespace WeatherApp
 
     public class Forecast
     {
-        
+
         public string icon { get; set; }
         public string temp6 { get; set; }
         public string temp12 { get; set; }
@@ -109,7 +109,6 @@ namespace WeatherApp
                         imageBitmap = BitmapFactory.DecodeByteArray(imageBytes, 0, imageBytes.Length);
                     }
                 }
-
                 return imageBitmap;
             }
             catch

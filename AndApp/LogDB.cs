@@ -12,6 +12,5 @@ namespace WeatherApp
         public string City { get; set; }
         public double temp { get; set; }
         public string icon { get; set; }
-
     }
 }
