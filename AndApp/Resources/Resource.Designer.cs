@@ -1432,22 +1432,25 @@ namespace WeatherApp
 			public const int abc_textfield_search_material = 2130837571;
 			
 			// aapt resource value: 0x7f020044
-			public const int Icon = 2130837572;
+			public const int ic_notification_small_icon = 2130837572;
 			
 			// aapt resource value: 0x7f020045
-			public const int logo = 2130837573;
-			
-			// aapt resource value: 0x7f020049
-			public const int notification_template_icon_bg = 2130837577;
+			public const int Icon = 2130837573;
 			
 			// aapt resource value: 0x7f020046
-			public const int op_menu = 2130837574;
+			public const int logo = 2130837574;
+			
+			// aapt resource value: 0x7f02004a
+			public const int notification_template_icon_bg = 2130837578;
 			
 			// aapt resource value: 0x7f020047
-			public const int round_button = 2130837575;
+			public const int op_menu = 2130837575;
 			
 			// aapt resource value: 0x7f020048
-			public const int Settings = 2130837576;
+			public const int round_button = 2130837576;
+			
+			// aapt resource value: 0x7f020049
+			public const int Settings = 2130837577;
 			
 			static Drawable()
 			{
@@ -1621,8 +1624,8 @@ namespace WeatherApp
 			// aapt resource value: 0x7f0b0064
 			public const int info = 2131427428;
 			
-			// aapt resource value: 0x7f0b0052
-			public const int inputText = 2131427410;
+			// aapt resource value: 0x7f0b0053
+			public const int inputText = 2131427411;
 			
 			// aapt resource value: 0x7f0b005e
 			public const int line1 = 2131427422;
@@ -1639,8 +1642,8 @@ namespace WeatherApp
 			// aapt resource value: 0x7f0b0067
 			public const int linearLayout11 = 2131427431;
 			
-			// aapt resource value: 0x7f0b0053
-			public const int linearLayout2 = 2131427411;
+			// aapt resource value: 0x7f0b0052
+			public const int linearLayout2 = 2131427410;
 			
 			// aapt resource value: 0x7f0b0066
 			public const int linearLayout3 = 2131427430;
@@ -2103,6 +2106,9 @@ namespace WeatherApp
 			
 			// aapt resource value: 0x7f05001f
 			public const int netError = 2131034143;
+			
+			// aapt resource value: 0x7f050025
+			public const int notification_content_text = 2131034149;
 			
 			// aapt resource value: 0x7f05001c
 			public const int prop1 = 2131034140;

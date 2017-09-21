@@ -17,4 +17,5 @@
   <string name="selectDC">Пожалуйста укажите город по-умолчанию в настройках</string>
   <string name="LogDBtoString">"В {0} погода {1} в {2} была {3}</string>
   <string name="emptyLog">Лог пуст</string>
+  <string name="notification_content_text">Погода в {0} сейчас {1}C ({2})</string>
 </resources>

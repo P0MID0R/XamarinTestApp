@@ -4,7 +4,7 @@ using SQLite;
 
 namespace WeatherApp
 {
-    class LogDB
+    public class LogDB
     {
         [PrimaryKey, AutoIncrement]
         public int ID { get; set; }
@@ -12,5 +12,6 @@ namespace WeatherApp
         public string City { get; set; }
         public double temp { get; set; }
         public string icon { get; set; }
+        public string description { get; set; }
     }
 }

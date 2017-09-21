@@ -7,7 +7,7 @@ using SQLite;
 
 namespace WeatherApp
 {
-    [Activity(Label = "@string/Log", Theme = "@android:style/Theme.Material")]
+    [Activity(Label = "@string/Log", Theme = "@android:style/Theme.Material", ParentActivity = typeof(MainActivity))]
     public class LogActivity : ListActivity
     {
         string path = System.IO.Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "localAppDB.db");

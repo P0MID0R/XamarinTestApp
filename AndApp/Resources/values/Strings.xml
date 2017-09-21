@@ -17,4 +17,5 @@
   <string name="selectDC">Please select default city in options</string>
   <string name="LogDBtoString">"In {0} weather {1} in {2} was {3}</string>
   <string name="emptyLog">Log is empty</string>
+  <string name="notification_content_text">Weather in {0} now {1}C ({2})</string>
 </resources>

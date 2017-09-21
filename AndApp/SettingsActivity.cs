@@ -5,7 +5,7 @@ using Android.Preferences;
 
 namespace WeatherApp
 {
-    [Activity(Label = "@string/settings", Theme = "@android:style/Theme.Material")]
+    [Activity(Label = "@string/settings", Theme = "@android:style/Theme.Material", ParentActivity = typeof(MainActivity))]
     public class SettingsActivity : PreferenceActivity
     {
         protected override void OnCreate(Bundle savedInstanceState)
@@ -13,7 +13,7 @@ namespace WeatherApp
             base.OnCreate(savedInstanceState);
             AddPreferencesFromResource(Resource.Drawable.Settings);
             ISharedPreferences d = PreferenceManager.GetDefaultSharedPreferences(this);
-            string data = d.GetString("pref_default_country", "Minsk");
+            string data = d.GetString("pref_default_country", "Minsk");           
         }
     }
 }

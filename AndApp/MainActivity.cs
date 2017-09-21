@@ -12,6 +12,7 @@ using Android.Preferences;
 using Android.Content.PM;
 using Android.Views;
 using Android.Views.InputMethods;
+using IR.Sohreco.Circularpulsingbutton;
 
 using SQLite;
 using Newtonsoft.Json.Linq;
@@ -38,12 +39,13 @@ namespace WeatherApp
 
             SetContentView(Resource.Layout.Main);
 
-            Button StartButton = FindViewById<Button>(Resource.Id.Start);
+            CircularPulsingButton StartButton = FindViewById<CircularPulsingButton>(Resource.Id.Start);
             Button Log_button = FindViewById<Button>(Resource.Id.Log_button);
             EditText inputText = FindViewById<EditText>(Resource.Id.inputText);
             ListView forecastView = FindViewById<ListView>(Resource.Id.forecastView);
 
             AppStartAsync();
+
 
             StartButton.Click += async (object sender, EventArgs e) =>
                {
@@ -51,7 +53,7 @@ namespace WeatherApp
                    {
                        InputMethodManager imm = (InputMethodManager)GetSystemService(Context.InputMethodService);
 
-                       showResultAsync(inputText.Text, GetWeatherData(inputText.Text));
+                       DisplayResult(await GetWeatherData(inputText.Text));
                        forecastView.Adapter = new ForecastListAdapter(await GetForecastData(inputText.Text));
 
                        imm.HideSoftInputFromWindow(inputText.WindowToken, 0);
@@ -64,6 +66,21 @@ namespace WeatherApp
                };
         }
 
+        protected override void OnRestart()
+        {
+            NotificationManager notificationManager = (NotificationManager)this.GetSystemService(Context.NotificationService);
+            notificationManager.CancelAll();
+            base.OnRestart();
+        }
+
+        protected override void OnStop()
+        {
+            ISharedPreferences d = PreferenceManager.GetDefaultSharedPreferences(this);
+            var intent = new Intent(this, typeof(WeatherService));
+            intent.PutExtra("DefaultCity", d.GetString("pref_default_country", ""));
+            StartService(intent);
+            base.OnStop();
+        }
 
         private async Task AppStartAsync()
         {
@@ -74,13 +91,19 @@ namespace WeatherApp
                 connectDatabase(path);
 
                 ISharedPreferences d = PreferenceManager.GetDefaultSharedPreferences(this);
-                string defaultCity = d.GetString("pref_default_country", (string)GetCurrentLocationNetwork()["city"]);
+                var prefEditor = d.Edit();
+                if (d.GetString("pref_default_country", "") == "")
+                {
+                    prefEditor.PutString("pref_default_country", (string)GetCurrentLocationNetwork()["city"]);
+                    prefEditor.Commit();
+                }
+                string defaultCity = d.GetString("pref_default_country", "");
 
                 if (defaultCity != "")
                 {
                     try
                     {
-                        showResultAsync(defaultCity, GetWeatherData(defaultCity));
+                        DisplayResult(await GetWeatherData(defaultCity));
                         forecastView.Adapter = new ForecastListAdapter(await GetForecastData(defaultCity));
                     }
                     catch
@@ -121,7 +144,7 @@ namespace WeatherApp
                     }
             }
             return base.OnOptionsItemSelected(item);
-        }   
+        }
 
         private async Task<string> connectDatabase(string path)
         {
@@ -153,19 +176,31 @@ namespace WeatherApp
             }
         }
 
-        public JObject GetWeatherData(string City)
+        public async Task<LogDB> GetWeatherData(string City)
         {
             try
             {
                 string OWAPIkey = "a4dcc6d4ef65f67ade104ecb98972b41";
                 string Url = "http://api.openweathermap.org/data/2.5/weather?q=" + City + "&appid=" + OWAPIkey + "&lang=" + Resources.Configuration.Locale.Language.ToString();
                 HttpClient client = new HttpClient();
-                var response = client.GetStringAsync(Url).Result;
-                return JObject.Parse(response);
+                var JsonInput = JObject.Parse(client.GetStringAsync(Url).Result);
+
+                string JSONtemp = (string)JsonInput["main"]["temp"];
+                LogDB currentdata = new LogDB
+                {
+                    City = (string)JsonInput["name"],
+                    date = DateTime.Now,
+                    temp = Math.Round(Convert.ToDouble(JSONtemp.Replace('.', ',')) - 273.15),
+                    icon = (string)JsonInput["weather"][0]["icon"],
+                    description = (string)JsonInput["weather"][0]["description"]
+                };
+                await insertData(currentdata, path);
+
+                return currentdata;
             }
             catch
             {
-                return null;
+                return new LogDB();
             }
         }
 
@@ -231,43 +266,20 @@ namespace WeatherApp
             return JObject.Parse(response);
         }
 
-        public async Task<bool> showResultAsync(string InputCity, JObject JsonInput)
+        public bool DisplayResult(LogDB inputData)
         {
+            ImageView weathericon = FindViewById<ImageView>(Resource.Id.imageView1);
+            ListView LogList = FindViewById<ListView>(Resource.Id.listView1);
+            LinearLayout imageLayout = FindViewById<LinearLayout>(Resource.Id.linearLayout1);
+            TextView CityName = FindViewById<TextView>(Resource.Id.textView1);
 
-            try
-            {
-                ImageView weathericon = FindViewById<ImageView>(Resource.Id.imageView1);
-                ListView LogList = FindViewById<ListView>(Resource.Id.listView1);
-                LinearLayout imageLayout = FindViewById<LinearLayout>(Resource.Id.linearLayout1);
-                imageLayout.Visibility = ViewStates.Invisible;
-                TextView CityName = FindViewById<TextView>(Resource.Id.textView1);
-                CityName.Visibility = ViewStates.Invisible;
+            var imageBitmap = GetImageBitmapFromUrl("http://openweathermap.org/img/w/" + inputData.icon + ".png");
+            weathericon.SetImageBitmap(imageBitmap);
+            CityName.Text = string.Format(GetString(Resource.String.currentToast), inputData.City, inputData.temp.ToString(), inputData.description);
+            imageLayout.Visibility = ViewStates.Visible;
+            CityName.Visibility = ViewStates.Visible;
 
-                string JSONtemp = (string)JsonInput["main"]["temp"];
-                double temp = Math.Round(Convert.ToDouble(JSONtemp.Replace('.', ',')) - 273.15);
-
-                string icon = (string)JsonInput["weather"][0]["icon"];
-                var imageBitmap = GetImageBitmapFromUrl("http://openweathermap.org/img/w/" + icon + ".png");
-                weathericon.SetImageBitmap(imageBitmap);
-                CityName.Text = string.Format(GetString(Resource.String.currentToast), (string)JsonInput["name"], temp.ToString(), (string)JsonInput["weather"][0]["description"]);
-                imageLayout.Visibility = ViewStates.Visible;
-                CityName.Visibility = ViewStates.Visible;
-
-                LogDB currentdata = new LogDB
-                {
-                    City = (string)JsonInput["name"],
-                    date = DateTime.Now,
-                    temp = Math.Round(Convert.ToDouble(JSONtemp.Replace('.', ',')) - 273.15),
-                    icon = (string)JsonInput["weather"][0]["icon"]
-                };
-                await insertData(currentdata, path);
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-
+            return true;
         }
 
         public Bitmap GetImageBitmapFromUrl(string url)
