@@ -223,7 +223,7 @@ namespace WeatherApp
                     Temp18 = "-"
                 };
 
-                for (var i = 0; i <= 35; i++)
+                for (var i = 0; i < ((JArray)forecastData["list"]).Count; i++)
                 {
                     DateTime tempdate = DateTime.ParseExact((string)forecastData["list"][i]["dt_txt"], "yyyy-MM-dd HH:mm:ss",
                                        System.Globalization.CultureInfo.InvariantCulture);
