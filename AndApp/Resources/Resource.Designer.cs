@@ -61,9 +61,6 @@ namespace WeatherApp
 			// aapt resource value: 0x7f040009
 			public const int abc_slide_out_top = 2130968585;
 			
-			// aapt resource value: 0x7f04000a
-			public const int loading = 2130968586;
-			
 			static Animation()
 			{
 				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
@@ -1438,76 +1435,19 @@ namespace WeatherApp
 			public const int Icon = 2130837572;
 			
 			// aapt resource value: 0x7f020045
-			public const int loading0000 = 2130837573;
-			
-			// aapt resource value: 0x7f020046
-			public const int loading0001 = 2130837574;
-			
-			// aapt resource value: 0x7f020047
-			public const int loading0002 = 2130837575;
-			
-			// aapt resource value: 0x7f020048
-			public const int loading0003 = 2130837576;
+			public const int logo = 2130837573;
 			
 			// aapt resource value: 0x7f020049
-			public const int loading0004 = 2130837577;
+			public const int notification_template_icon_bg = 2130837577;
 			
-			// aapt resource value: 0x7f02004a
-			public const int loading0005 = 2130837578;
+			// aapt resource value: 0x7f020046
+			public const int op_menu = 2130837574;
 			
-			// aapt resource value: 0x7f02004b
-			public const int loading0006 = 2130837579;
+			// aapt resource value: 0x7f020047
+			public const int round_button = 2130837575;
 			
-			// aapt resource value: 0x7f02004c
-			public const int loading0007 = 2130837580;
-			
-			// aapt resource value: 0x7f02004d
-			public const int loading0008 = 2130837581;
-			
-			// aapt resource value: 0x7f02004e
-			public const int loading0009 = 2130837582;
-			
-			// aapt resource value: 0x7f02004f
-			public const int loading0010 = 2130837583;
-			
-			// aapt resource value: 0x7f020050
-			public const int loading0011 = 2130837584;
-			
-			// aapt resource value: 0x7f020051
-			public const int loading0012 = 2130837585;
-			
-			// aapt resource value: 0x7f020052
-			public const int loading0013 = 2130837586;
-			
-			// aapt resource value: 0x7f020053
-			public const int loading0014 = 2130837587;
-			
-			// aapt resource value: 0x7f020054
-			public const int loading0015 = 2130837588;
-			
-			// aapt resource value: 0x7f020055
-			public const int loading0016 = 2130837589;
-			
-			// aapt resource value: 0x7f020056
-			public const int loading0017 = 2130837590;
-			
-			// aapt resource value: 0x7f020057
-			public const int loading0018 = 2130837591;
-			
-			// aapt resource value: 0x7f020058
-			public const int loading0019 = 2130837592;
-			
-			// aapt resource value: 0x7f02005c
-			public const int notification_template_icon_bg = 2130837596;
-			
-			// aapt resource value: 0x7f020059
-			public const int op_menu = 2130837593;
-			
-			// aapt resource value: 0x7f02005a
-			public const int round_button = 2130837594;
-			
-			// aapt resource value: 0x7f02005b
-			public const int Settings = 2130837595;
+			// aapt resource value: 0x7f020048
+			public const int Settings = 2130837576;
 			
 			static Drawable()
 			{

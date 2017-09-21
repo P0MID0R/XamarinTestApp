@@ -1,19 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Android.App;
+﻿using Android.App;
 using Android.Content;
 using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
-using Android.Graphics.Drawables;
-using System.Threading;
-using Android.Animation;
+
 using System.Threading.Tasks;
-using Android.Support.V7.App;
+
 
 namespace WeatherApp
 {
@@ -24,15 +14,14 @@ namespace WeatherApp
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.Splash);
-            //StartActivity(new Intent(Application.Context, typeof(MainActivity)));
         }
 
-        public override void OnWindowFocusChanged(bool hasFocus)
-        {
-                ImageView imageView = FindViewById<ImageView>(Resource.Id.loading_animation);
-                AnimationDrawable animation = (AnimationDrawable)imageView.Drawable;
-                animation.Start();
-        }
+        //public override void OnWindowFocusChanged(bool hasFocus)
+        //{
+        //        ImageView imageView = FindViewById<ImageView>(Resource.Id.loading_animation);
+        //        AnimationDrawable animation = (AnimationDrawable)imageView.Drawable;
+        //        animation.Start();
+        //}
 
         protected override void OnResume()
         {
@@ -41,9 +30,20 @@ namespace WeatherApp
             startupWork.Start();
         }
 
+        protected override void OnRestart()
+        {
+            base.OnRestart();
+            StartActivity(new Intent(Application.Context, typeof(MainActivity)));
+        }
+
+        protected override void OnPause()
+        {
+            base.OnPause();
+        }
+
         private async void SimulateStartup()
         {
-            await Task.Delay(2000);
+            await Task.Delay(1500);
             StartActivity(new Intent(Application.Context, typeof(MainActivity)));
         }
     }

@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Net;
 
-using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.Graphics;
@@ -28,11 +21,11 @@ namespace WeatherApp
     public class Forecast
     {
 
-        public string icon { get; set; }
-        public string temp6 { get; set; }
-        public string temp12 { get; set; }
-        public string temp18 { get; set; }
-        public string date { get; set; }
+        public string Icon { get; set; }
+        public string Temp6 { get; set; }
+        public string Temp12 { get; set; }
+        public string Temp18 { get; set; }
+        public string Date { get; set; }
     }
 
     class ForecastListAdapter : BaseAdapter<Forecast>
@@ -90,13 +83,13 @@ namespace WeatherApp
 
             var holder = (ViewHolderForecast)view.Tag;
 
-            var imageBitmap = GetImageBitmapFromUrl("http://openweathermap.org/img/w/" + forecasts[position].icon + ".png");
+            var imageBitmap = GetImageBitmapFromUrl("http://openweathermap.org/img/w/" + forecasts[position].Icon + ".png");
 
             holder.Icon.SetImageBitmap(imageBitmap);
-            holder.Temp6.Text = forecasts[position].temp6;
-            holder.Temp12.Text = forecasts[position].temp12;
-            holder.Temp18.Text = forecasts[position].temp18;
-            holder.Date.Text = forecasts[position].date;
+            holder.Temp6.Text = forecasts[position].Temp6;
+            holder.Temp12.Text = forecasts[position].Temp12;
+            holder.Temp18.Text = forecasts[position].Temp18;
+            holder.Date.Text = forecasts[position].Date;
 
             return view;
 

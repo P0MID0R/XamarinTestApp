@@ -64,6 +64,7 @@ namespace WeatherApp
                };
         }
 
+
         private async Task AppStartAsync()
         {
             try
@@ -120,7 +121,7 @@ namespace WeatherApp
                     }
             }
             return base.OnOptionsItemSelected(item);
-        }
+        }   
 
         private async Task<string> connectDatabase(string path)
         {
@@ -181,10 +182,10 @@ namespace WeatherApp
                 var forecastData = JObject.Parse(response);
                 Forecast tempForecast = new Forecast
                 {
-                    icon = "",
-                    temp6 = "-",
-                    temp12 = "-",
-                    temp18 = "-"
+                    Icon = "",
+                    Temp6 = "-",
+                    Temp12 = "-",
+                    Temp18 = "-"
                 };
 
                 for (var i = 0; i <= 35; i++)
@@ -195,21 +196,21 @@ namespace WeatherApp
                     if (tempdate.TimeOfDay.Hours == 6)
                     {
                         string JSONtemp = (string)forecastData["list"][i]["main"]["temp"];
-                        tempForecast.icon = (string)forecastData["list"][i]["weather"][0]["icon"];
-                        tempForecast.temp6 = (Math.Round(Convert.ToDouble(JSONtemp.Replace('.', ',')) - 273.15)).ToString();
+                        tempForecast.Icon = (string)forecastData["list"][i]["weather"][0]["icon"];
+                        tempForecast.Temp6 = (Math.Round(Convert.ToDouble(JSONtemp.Replace('.', ',')) - 273.15)).ToString();
                     }
                     if (tempdate.TimeOfDay.Hours == 12)
                     {
                         string JSONtemp = (string)forecastData["list"][i]["main"]["temp"];
-                        tempForecast.icon = (string)forecastData["list"][i]["weather"][0]["icon"];
-                        tempForecast.temp12 = (Math.Round(Convert.ToDouble(JSONtemp.Replace('.', ',')) - 273.15)).ToString();
+                        tempForecast.Icon = (string)forecastData["list"][i]["weather"][0]["icon"];
+                        tempForecast.Temp12 = (Math.Round(Convert.ToDouble(JSONtemp.Replace('.', ',')) - 273.15)).ToString();
                     }
                     if (tempdate.TimeOfDay.Hours == 18)
                     {
                         string JSONtemp = (string)forecastData["list"][i]["main"]["temp"];
-                        tempForecast.icon = (string)forecastData["list"][i]["weather"][0]["icon"];
-                        tempForecast.temp18 = (Math.Round(Convert.ToDouble(JSONtemp.Replace('.', ',')) - 273.15)).ToString();
-                        tempForecast.date = tempdate.Day.ToString("D2") + "." + tempdate.Month.ToString("D2"); ;
+                        tempForecast.Icon = (string)forecastData["list"][i]["weather"][0]["icon"];
+                        tempForecast.Temp18 = (Math.Round(Convert.ToDouble(JSONtemp.Replace('.', ',')) - 273.15)).ToString();
+                        tempForecast.Date = tempdate.Day.ToString("D2") + "." + tempdate.Month.ToString("D2"); ;
                         forecastList.Add(tempForecast);
                         tempForecast = new Forecast();
                     }

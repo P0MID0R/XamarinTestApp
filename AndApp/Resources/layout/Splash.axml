@@ -7,7 +7,7 @@
     android:minHeight="25px"
     android:gravity="center">
     <ImageView
-        android:src="@anim/loading"
+        android:src="@drawable/logo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/loading_animation" />
