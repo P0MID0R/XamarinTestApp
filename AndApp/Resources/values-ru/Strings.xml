@@ -7,9 +7,12 @@
   <string name="log">лог</string>
   <string name="settings">Настройки</string>
   <string name="enterCity">Укажите город</string>
-  <string name="settingsTite">Основные настройки</string>
+  <string name="settingsTite1">Основные настройки</string>
   <string name="prop1">Город по-умолчанию</string>
   <string name="prop2">Выберите город по-умолчанию</string>
+  <string name="settingsTite2">Обновление уведомлений</string>
+  <string name="prop3">Время обновления</string>
+  <string name="prop4">Веберите частоту обновления</string>
   <string name="error_message">Ошибка</string>
   <string name="netError">Нет доступа к сети</string>
   <string name="errorDB">Ошибка БД</string>
@@ -18,4 +21,11 @@
   <string name="LogDBtoString">"В {0} погода {1} в {2} была {3}</string>
   <string name="emptyLog">Лог пуст</string>
   <string name="notification_content_text">Погода в {0} сейчас {1}C ({2})</string>
+  <string name="IntervalOneMinute">1 мин</string>
+  <string name="IntervalFifteenMinutes">15 мин</string>
+  <string name="IntervalHalfHour">30 мин</string>
+  <string name="IntervalHour">1 час</string>
+  <string name="IntervalHalfDay">12 часов</string>
+  <string name="IntervalDay">1 день</string>
+  
 </resources>

@@ -71,6 +71,25 @@ namespace WeatherApp
 			}
 		}
 		
+		public partial class Array
+		{
+			
+			// aapt resource value: 0x7f0c0000
+			public const int IntervalPref = 2131492864;
+			
+			// aapt resource value: 0x7f0c0001
+			public const int IntervalPrefValues = 2131492865;
+			
+			static Array()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
+			
+			private Array()
+			{
+			}
+		}
+		
 		public partial class Attribute
 		{
 			
@@ -2020,11 +2039,29 @@ namespace WeatherApp
 		public partial class String
 		{
 			
+			// aapt resource value: 0x7f05002e
+			public const int IntervalDay = 2131034158;
+			
+			// aapt resource value: 0x7f05002a
+			public const int IntervalFifteenMinutes = 2131034154;
+			
+			// aapt resource value: 0x7f05002d
+			public const int IntervalHalfDay = 2131034157;
+			
+			// aapt resource value: 0x7f05002b
+			public const int IntervalHalfHour = 2131034155;
+			
+			// aapt resource value: 0x7f05002c
+			public const int IntervalHour = 2131034156;
+			
+			// aapt resource value: 0x7f050029
+			public const int IntervalOneMinute = 2131034153;
+			
 			// aapt resource value: 0x7f050015
 			public const int Log = 2131034133;
 			
-			// aapt resource value: 0x7f050023
-			public const int LogDBtoString = 2131034147;
+			// aapt resource value: 0x7f050026
+			public const int LogDBtoString = 2131034150;
 			
 			// aapt resource value: 0x7f050000
 			public const int abc_action_bar_home_description = 2131034112;
@@ -2086,29 +2123,29 @@ namespace WeatherApp
 			// aapt resource value: 0x7f050014
 			public const int app_name = 2131034132;
 			
-			// aapt resource value: 0x7f050021
-			public const int currentToast = 2131034145;
-			
 			// aapt resource value: 0x7f050024
-			public const int emptyLog = 2131034148;
+			public const int currentToast = 2131034148;
+			
+			// aapt resource value: 0x7f050027
+			public const int emptyLog = 2131034151;
 			
 			// aapt resource value: 0x7f05001a
 			public const int enterCity = 2131034138;
 			
-			// aapt resource value: 0x7f050020
-			public const int errorDB = 2131034144;
+			// aapt resource value: 0x7f050023
+			public const int errorDB = 2131034147;
 			
-			// aapt resource value: 0x7f05001e
-			public const int error_message = 2131034142;
+			// aapt resource value: 0x7f050021
+			public const int error_message = 2131034145;
 			
 			// aapt resource value: 0x7f050018
 			public const int log = 2131034136;
 			
-			// aapt resource value: 0x7f05001f
-			public const int netError = 2131034143;
+			// aapt resource value: 0x7f050022
+			public const int netError = 2131034146;
 			
-			// aapt resource value: 0x7f050025
-			public const int notification_content_text = 2131034149;
+			// aapt resource value: 0x7f050028
+			public const int notification_content_text = 2131034152;
 			
 			// aapt resource value: 0x7f05001c
 			public const int prop1 = 2131034140;
@@ -2116,14 +2153,23 @@ namespace WeatherApp
 			// aapt resource value: 0x7f05001d
 			public const int prop2 = 2131034141;
 			
-			// aapt resource value: 0x7f050022
-			public const int selectDC = 2131034146;
+			// aapt resource value: 0x7f05001f
+			public const int prop3 = 2131034143;
+			
+			// aapt resource value: 0x7f050020
+			public const int prop4 = 2131034144;
+			
+			// aapt resource value: 0x7f050025
+			public const int selectDC = 2131034149;
 			
 			// aapt resource value: 0x7f050019
 			public const int settings = 2131034137;
 			
 			// aapt resource value: 0x7f05001b
-			public const int settingsTite = 2131034139;
+			public const int settingsTite1 = 2131034139;
+			
+			// aapt resource value: 0x7f05001e
+			public const int settingsTite2 = 2131034142;
 			
 			// aapt resource value: 0x7f050016
 			public const int start = 2131034134;

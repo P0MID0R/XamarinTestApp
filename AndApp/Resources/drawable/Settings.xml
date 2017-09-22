@@ -1,12 +1,23 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
   <PreferenceCategory
-      android:title="@string/settingsTite"
-      android:key="pref_key_storage_settings">
+      android:title="@string/settingsTite1"
+      android:key="pref_key_storage_settings1">
     <EditTextPreference
         android:title="@string/prop1"
         android:key="pref_default_country"
         android:summary="@string/prop2"
+        />
+  </PreferenceCategory>
+  <PreferenceCategory
+      android:title="@string/settingsTite2"
+      android:key="pref_key_storage_settings2">
+    <ListPreference
+        android:title="@string/prop3"
+        android:entries="@array/IntervalPref"
+        android:entryValues="@array/IntervalPrefValues"
+        android:key="pref_default_frequency"
+        android:summary="@string/prop4"
         />
   </PreferenceCategory>
 </PreferenceScreen>

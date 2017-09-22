@@ -17,6 +17,7 @@ using IR.Sohreco.Circularpulsingbutton;
 using SQLite;
 using Newtonsoft.Json.Linq;
 using System.Threading.Tasks;
+using Android.Runtime;
 
 namespace WeatherApp
 {
@@ -70,15 +71,48 @@ namespace WeatherApp
         {
             NotificationManager notificationManager = (NotificationManager)this.GetSystemService(Context.NotificationService);
             notificationManager.CancelAll();
+            var alarmIntent = new Intent(this, typeof(WeatherService));
+            var pending = PendingIntent.GetBroadcast(this, 0, alarmIntent, PendingIntentFlags.UpdateCurrent);
+            var alarmManager = GetSystemService(AlarmService).JavaCast<AlarmManager>();
+            alarmManager.Cancel(pending);
             base.OnRestart();
         }
 
         protected override void OnStop()
         {
             ISharedPreferences d = PreferenceManager.GetDefaultSharedPreferences(this);
-            var intent = new Intent(this, typeof(WeatherService));
-            intent.PutExtra("DefaultCity", d.GetString("pref_default_country", ""));
-            StartService(intent);
+            var alarmIntent = new Intent(this, typeof(WeatherService));
+            string intervalPref = d.GetString("pref_default_frequency", "");
+            alarmIntent.PutExtra("DefaultCity", d.GetString("pref_default_country", ""));
+
+            long interval = 0;
+
+            switch (intervalPref)
+            {
+                case "IntervalOneMinute":
+                    interval = AlarmManager.IntervalFifteenMinutes / 15;
+                    break;
+                case "IntervalFifteenMinutes":
+                    interval = AlarmManager.IntervalFifteenMinutes;
+                    break;
+                case "IntervalHalfHour":
+                    interval = AlarmManager.IntervalHalfHour;
+                    break;
+                case "IntervalHour":
+                    interval = AlarmManager.IntervalHour;
+                    break;
+                case "IntervalHalfDay":
+                    interval = AlarmManager.IntervalHalfDay;
+                    break;
+                case "IntervalDay":
+                    interval = AlarmManager.IntervalDay;
+                    break;
+            }
+
+            var pending = PendingIntent.GetBroadcast(this, 0, alarmIntent, PendingIntentFlags.UpdateCurrent);
+
+            var alarmManager = GetSystemService(AlarmService).JavaCast<AlarmManager>();
+            alarmManager.SetRepeating(AlarmType.ElapsedRealtime, SystemClock.ElapsedRealtime() + interval, interval, pending);
             base.OnStop();
         }
 
@@ -95,6 +129,7 @@ namespace WeatherApp
                 if (d.GetString("pref_default_country", "") == "")
                 {
                     prefEditor.PutString("pref_default_country", (string)GetCurrentLocationNetwork()["city"]);
+                    prefEditor.PutString("pref_default_frequency", "IntervalHour");
                     prefEditor.Commit();
                 }
                 string defaultCity = d.GetString("pref_default_country", "");
