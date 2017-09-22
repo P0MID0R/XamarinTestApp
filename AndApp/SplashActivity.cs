@@ -1,7 +1,8 @@
 ﻿using Android.App;
 using Android.Content;
+using Android.Graphics.Drawables;
 using Android.OS;
-
+using Android.Widget;
 using System.Threading.Tasks;
 
 
@@ -14,14 +15,9 @@ namespace WeatherApp
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.Splash);
+            AnimationDrawable animation = (AnimationDrawable)FindViewById<ImageView>(Resource.Id.logo).Drawable;
+            animation.Start();
         }
-
-        //public override void OnWindowFocusChanged(bool hasFocus)
-        //{
-        //        ImageView imageView = FindViewById<ImageView>(Resource.Id.loading_animation);
-        //        AnimationDrawable animation = (AnimationDrawable)imageView.Drawable;
-        //        animation.Start();
-        //}
 
         protected override void OnResume()
         {

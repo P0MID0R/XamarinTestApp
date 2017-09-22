@@ -1,8 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+
 using Android.App;
 using Android.OS;
 using Android.Widget;
+using Android.Runtime;
+using Android.Content;
+
 using SQLite;
 
 namespace WeatherApp
@@ -14,6 +18,7 @@ namespace WeatherApp
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
+            ServiceControl.StopAlarmService();
             base.OnCreate(savedInstanceState);
 
             if (GetAllData(path).Count != 0)

@@ -2,6 +2,7 @@
 using System.Net.Http;
 using System.Net;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 using Android.App;
 using Android.Widget;
@@ -13,11 +14,10 @@ using Android.Content.PM;
 using Android.Views;
 using Android.Views.InputMethods;
 using IR.Sohreco.Circularpulsingbutton;
+using Android.Runtime;
 
 using SQLite;
 using Newtonsoft.Json.Linq;
-using System.Threading.Tasks;
-using Android.Runtime;
 
 namespace WeatherApp
 {
@@ -31,88 +31,28 @@ namespace WeatherApp
     {
         string path = System.IO.Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "localAppDB.db");
 
-
-
         protected override void OnCreate(Bundle savedInstanceState)
         {
-
             base.OnCreate(savedInstanceState);
 
             SetContentView(Resource.Layout.Main);
 
-            CircularPulsingButton StartButton = FindViewById<CircularPulsingButton>(Resource.Id.Start);
-            Button Log_button = FindViewById<Button>(Resource.Id.Log_button);
-            EditText inputText = FindViewById<EditText>(Resource.Id.inputText);
             ListView forecastView = FindViewById<ListView>(Resource.Id.forecastView);
 
             AppStartAsync();
-
-
-            StartButton.Click += async (object sender, EventArgs e) =>
-               {
-                   try
-                   {
-                       InputMethodManager imm = (InputMethodManager)GetSystemService(Context.InputMethodService);
-
-                       DisplayResult(await GetWeatherData(inputText.Text));
-                       forecastView.Adapter = new ForecastListAdapter(await GetForecastData(inputText.Text));
-
-                       imm.HideSoftInputFromWindow(inputText.WindowToken, 0);
-                       inputText.Text = string.Empty;
-                   }
-                   catch
-                   {
-                       Toast.MakeText(ApplicationContext, GetString(Resource.String.error_message), ToastLength.Long).Show();
-                   }
-               };
         }
 
         protected override void OnRestart()
         {
             NotificationManager notificationManager = (NotificationManager)this.GetSystemService(Context.NotificationService);
             notificationManager.CancelAll();
-            var alarmIntent = new Intent(this, typeof(WeatherService));
-            var pending = PendingIntent.GetBroadcast(this, 0, alarmIntent, PendingIntentFlags.UpdateCurrent);
-            var alarmManager = GetSystemService(AlarmService).JavaCast<AlarmManager>();
-            alarmManager.Cancel(pending);
+            ServiceControl.StopAlarmService();
             base.OnRestart();
         }
 
         protected override void OnStop()
         {
-            ISharedPreferences d = PreferenceManager.GetDefaultSharedPreferences(this);
-            var alarmIntent = new Intent(this, typeof(WeatherService));
-            string intervalPref = d.GetString("pref_default_frequency", "");
-            alarmIntent.PutExtra("DefaultCity", d.GetString("pref_default_country", ""));
-
-            long interval = 0;
-
-            switch (intervalPref)
-            {
-                case "IntervalOneMinute":
-                    interval = AlarmManager.IntervalFifteenMinutes / 15;
-                    break;
-                case "IntervalFifteenMinutes":
-                    interval = AlarmManager.IntervalFifteenMinutes;
-                    break;
-                case "IntervalHalfHour":
-                    interval = AlarmManager.IntervalHalfHour;
-                    break;
-                case "IntervalHour":
-                    interval = AlarmManager.IntervalHour;
-                    break;
-                case "IntervalHalfDay":
-                    interval = AlarmManager.IntervalHalfDay;
-                    break;
-                case "IntervalDay":
-                    interval = AlarmManager.IntervalDay;
-                    break;
-            }
-
-            var pending = PendingIntent.GetBroadcast(this, 0, alarmIntent, PendingIntentFlags.UpdateCurrent);
-
-            var alarmManager = GetSystemService(AlarmService).JavaCast<AlarmManager>();
-            alarmManager.SetRepeating(AlarmType.ElapsedRealtime, SystemClock.ElapsedRealtime() + interval, interval, pending);
+            ServiceControl.StartAlarmService();
             base.OnStop();
         }
 
@@ -148,6 +88,10 @@ namespace WeatherApp
                 }
                 else
                     Toast.MakeText(ApplicationContext, GetString(Resource.String.selectDC), ToastLength.Long).Show();
+                FindViewById<ImageView>(Resource.Id.imageView1).Visibility = ViewStates.Visible;
+                FindViewById<LinearLayout>(Resource.Id.linearLayout1).Visibility = ViewStates.Visible;
+                FindViewById<TextView>(Resource.Id.weatherMessage).Visibility = ViewStates.Visible;
+                FindViewById<ListView>(Resource.Id.forecastView).Visibility = ViewStates.Visible;
             }
             catch
             {
@@ -177,8 +121,28 @@ namespace WeatherApp
                         StartActivity(callLog);
                         return true;
                     }
+                case Resource.Id.refreshData:
+                    {
+                        RefreshDataAsync();
+                        return true;
+                    }
             }
             return base.OnOptionsItemSelected(item);
+        }
+
+        private async Task RefreshDataAsync()
+        {
+            try
+            {
+                ListView forecastView = FindViewById<ListView>(Resource.Id.forecastView);
+
+                DisplayResult(await GetWeatherData(PreferenceManager.GetDefaultSharedPreferences(this).GetString("pref_default_country", "")));
+                forecastView.Adapter = new ForecastListAdapter(await GetForecastData(PreferenceManager.GetDefaultSharedPreferences(this).GetString("pref_default_country", "")));
+            }
+            catch
+            {
+                Toast.MakeText(ApplicationContext, GetString(Resource.String.error_message), ToastLength.Long).Show();
+            }
         }
 
         private async Task<string> connectDatabase(string path)
@@ -211,7 +175,7 @@ namespace WeatherApp
             }
         }
 
-        public async Task<LogDB> GetWeatherData(string City)
+        private async Task<LogDB> GetWeatherData(string City)
         {
             try
             {
@@ -239,7 +203,7 @@ namespace WeatherApp
             }
         }
 
-        public async Task<List<Forecast>> GetForecastData(string City)
+        private async Task<List<Forecast>> GetForecastData(string City)
         {
             try
             {
@@ -293,7 +257,7 @@ namespace WeatherApp
             }
         }
 
-        public JObject GetCurrentLocationNetwork() //free http://ip-api.com api
+        private JObject GetCurrentLocationNetwork() //free http://ip-api.com api
         {
             string Url = "http://ip-api.com/json";
             HttpClient client = new HttpClient();
@@ -301,23 +265,19 @@ namespace WeatherApp
             return JObject.Parse(response);
         }
 
-        public bool DisplayResult(LogDB inputData)
+        private bool DisplayResult(LogDB inputData)
         {
             ImageView weathericon = FindViewById<ImageView>(Resource.Id.imageView1);
-            ListView LogList = FindViewById<ListView>(Resource.Id.listView1);
-            LinearLayout imageLayout = FindViewById<LinearLayout>(Resource.Id.linearLayout1);
-            TextView CityName = FindViewById<TextView>(Resource.Id.textView1);
+            TextView CityName = FindViewById<TextView>(Resource.Id.weatherMessage);
 
             var imageBitmap = GetImageBitmapFromUrl("http://openweathermap.org/img/w/" + inputData.icon + ".png");
             weathericon.SetImageBitmap(imageBitmap);
             CityName.Text = string.Format(GetString(Resource.String.currentToast), inputData.City, inputData.temp.ToString(), inputData.description);
-            imageLayout.Visibility = ViewStates.Visible;
-            CityName.Visibility = ViewStates.Visible;
 
             return true;
         }
 
-        public Bitmap GetImageBitmapFromUrl(string url)
+        private Bitmap GetImageBitmapFromUrl(string url)
         {
             Bitmap imageBitmap = null;
 
@@ -330,7 +290,7 @@ namespace WeatherApp
                 }
             }
             return imageBitmap;
-        }
+        }       
     }
 
 }

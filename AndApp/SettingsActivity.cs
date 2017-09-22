@@ -2,6 +2,7 @@
 using Android.Content;
 using Android.OS;
 using Android.Preferences;
+using Android.Runtime;
 
 namespace WeatherApp
 {
@@ -9,11 +10,11 @@ namespace WeatherApp
     public class SettingsActivity : PreferenceActivity
     {
         protected override void OnCreate(Bundle savedInstanceState)
-        {
+        {        
             base.OnCreate(savedInstanceState);
+            ServiceControl.StopAlarmService();
             AddPreferencesFromResource(Resource.Drawable.Settings);
-            ISharedPreferences d = PreferenceManager.GetDefaultSharedPreferences(this);
-            string data = d.GetString("pref_default_country", "Minsk");           
+            ISharedPreferences d = PreferenceManager.GetDefaultSharedPreferences(this);    
         }
     }
 }
