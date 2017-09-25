@@ -2,6 +2,7 @@
 using Android.Content;
 using Android.Graphics.Drawables;
 using Android.OS;
+using Android.Preferences;
 using Android.Widget;
 using System.Threading.Tasks;
 
@@ -14,22 +15,35 @@ namespace WeatherApp
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-            SetContentView(Resource.Layout.Splash);
-            AnimationDrawable animation = (AnimationDrawable)FindViewById<ImageView>(Resource.Id.logo).Drawable;
-            animation.Start();
+            ISharedPreferences d = PreferenceManager.GetDefaultSharedPreferences(this);
+            if (d.GetBoolean("pref_loading_show", true))
+            {
+                SetContentView(Resource.Layout.Splash);
+                AnimationDrawable animation = (AnimationDrawable)FindViewById<ImageView>(Resource.Id.logo).Drawable;
+                animation.Start();
+            }
+            else
+            {
+                SetContentView(Resource.Layout.Splash);
+                StartActivity(new Intent(Application.Context, typeof(MainActivity)));
+            }
         }
 
         protected override void OnResume()
         {
             base.OnResume();
-            Task startupWork = new Task(() => { SimulateStartup(); });
-            startupWork.Start();
+            ISharedPreferences d = PreferenceManager.GetDefaultSharedPreferences(this);
+            if (d.GetBoolean("pref_loading_show", true))
+            {
+                Task startupWork = new Task(() => { SimulateStartup(); });
+                startupWork.Start();
+            }
         }
 
         protected override void OnRestart()
         {
             base.OnRestart();
-            StartActivity(new Intent(Application.Context, typeof(MainActivity)));
+            //StartActivity(new Intent(Application.Context, typeof(MainActivity)));
         }
 
         protected override void OnPause()

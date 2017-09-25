@@ -18,6 +18,7 @@ using Android.Runtime;
 
 using SQLite;
 using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 
 namespace WeatherApp
 {
@@ -34,11 +35,9 @@ namespace WeatherApp
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-
             SetContentView(Resource.Layout.Main);
-
             ListView forecastView = FindViewById<ListView>(Resource.Id.forecastView);
-
+            forecastView.ItemClick += forecastView_ItemClick;
             AppStartAsync();
         }
 
@@ -70,6 +69,7 @@ namespace WeatherApp
                 {
                     prefEditor.PutString("pref_default_country", (string)GetCurrentLocationNetwork()["city"]);
                     prefEditor.PutString("pref_default_frequency", "IntervalHour");
+                    prefEditor.PutBoolean("pref_loading_show",true);
                     prefEditor.Commit();
                 }
                 string defaultCity = d.GetString("pref_default_country", "");
@@ -143,6 +143,34 @@ namespace WeatherApp
             {
                 Toast.MakeText(ApplicationContext, GetString(Resource.String.error_message), ToastLength.Long).Show();
             }
+        }
+
+        private void forecastView_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
+        {
+            try
+            {
+                var item = Cast(FindViewById<ListView>(Resource.Id.forecastView).GetItemAtPosition(e.Position));
+                var callDetails = new Intent(this, typeof(ForecastDetailActivity));
+                string OWAPIkey = "a4dcc6d4ef65f67ade104ecb98972b41";
+                string City = PreferenceManager.GetDefaultSharedPreferences(Application.Context).GetString("pref_default_country", "");
+                string Url = "http://api.openweathermap.org/data/2.5/forecast?q=" + City + "&appid=" + OWAPIkey + "&lang=" + Resources.Configuration.Locale.Language.ToString();
+                HttpClient client = new HttpClient();
+                var response = client.GetStringAsync(Url).Result;
+
+                callDetails.PutExtra("forecastData", JsonConvert.SerializeObject(item));
+                callDetails.PutExtra("forecastListData", response);
+                StartActivity(callDetails);
+            }
+            catch
+            {
+                Toast.MakeText(ApplicationContext, GetString(Resource.String.error_message), ToastLength.Long).Show();
+            }
+        }
+
+        public static Forecast Cast(Object obj)
+        {
+            var propertyInfo = obj.GetType().GetProperty("Instance");
+            return propertyInfo == null ? null : propertyInfo.GetValue(obj, null) as Forecast;
         }
 
         private async Task<string> connectDatabase(string path)
@@ -244,7 +272,7 @@ namespace WeatherApp
                         string JSONtemp = (string)forecastData["list"][i]["main"]["temp"];
                         tempForecast.Icon = (string)forecastData["list"][i]["weather"][0]["icon"];
                         tempForecast.Temp18 = (Math.Round(Convert.ToDouble(JSONtemp.Replace('.', ',')) - 273.15)).ToString();
-                        tempForecast.Date = tempdate.Day.ToString("D2") + "." + tempdate.Month.ToString("D2"); ;
+                        tempForecast.Date = tempdate;
                         forecastList.Add(tempForecast);
                         tempForecast = new Forecast();
                     }
@@ -269,7 +297,6 @@ namespace WeatherApp
         {
             ImageView weathericon = FindViewById<ImageView>(Resource.Id.imageView1);
             TextView CityName = FindViewById<TextView>(Resource.Id.weatherMessage);
-
             var imageBitmap = GetImageBitmapFromUrl("http://openweathermap.org/img/w/" + inputData.icon + ".png");
             weathericon.SetImageBitmap(imageBitmap);
             CityName.Text = string.Format(GetString(Resource.String.currentToast), inputData.City, inputData.temp.ToString(), inputData.description);
@@ -277,7 +304,7 @@ namespace WeatherApp
             return true;
         }
 
-        private Bitmap GetImageBitmapFromUrl(string url)
+        public static Bitmap GetImageBitmapFromUrl(string url)
         {
             Bitmap imageBitmap = null;
 
@@ -294,4 +321,3 @@ namespace WeatherApp
     }
 
 }
-

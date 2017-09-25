@@ -8,6 +8,11 @@
         android:key="pref_default_country"
         android:summary="@string/prop2"
         />
+    <CheckBoxPreference
+        android:title="@string/loadLogo"
+        android:key="pref_loading_show"
+        android:summary="@string/loadLogoDesc"
+    />
   </PreferenceCategory>
   <PreferenceCategory
       android:title="@string/settingsTite2"

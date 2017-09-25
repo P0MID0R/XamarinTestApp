@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Net;
+using System;
 
 using Android.Views;
 using Android.Widget;
@@ -25,23 +26,18 @@ namespace WeatherApp
         public string Temp6 { get; set; }
         public string Temp12 { get; set; }
         public string Temp18 { get; set; }
-        public string Date { get; set; }
+        public DateTime Date { get; set; }
     }
 
     class ForecastListAdapter : BaseAdapter<Forecast>
     {
         List<Forecast> forecasts;
-        private Task<List<Forecast>> task;
 
         public ForecastListAdapter(List<Forecast> forecasts)
         {
             this.forecasts = forecasts;
         }
 
-        public ForecastListAdapter(Task<List<Forecast>> task)
-        {
-            this.task = task;
-        }
 
         public override Forecast this[int position]
         {
@@ -89,7 +85,7 @@ namespace WeatherApp
             holder.Temp6.Text = forecasts[position].Temp6;
             holder.Temp12.Text = forecasts[position].Temp12;
             holder.Temp18.Text = forecasts[position].Temp18;
-            holder.Date.Text = forecasts[position].Date;
+            holder.Date.Text = forecasts[position].Date.Day.ToString("D2") + "." + forecasts[position].Date.Month.ToString("D2");
 
             return view;
 

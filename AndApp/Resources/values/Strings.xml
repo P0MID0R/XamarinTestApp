@@ -21,12 +21,9 @@
   <string name="LogDBtoString">"In {0} weather {1} in {2} was {3}</string>
   <string name="emptyLog">Log is empty</string>
   <string name="notification_content_text">Weather in {0} now {1}C ({2})</string>
-  <string name="IntervalOneMinute">1 min</string>
-  <string name="IntervalFifteenMinutes">15 min</string>
-  <string name="IntervalHalfHour">30 min</string>
-  <string name="IntervalHour">1 hour</string>
-  <string name="IntervalHalfDay">12 hours</string>
-  <string name="IntervalDay">1 day</string>
+  <string name="loadLogo">Show logo</string>
+  <string name="loadLogoDesc">Show logo on startup?</string>
+  <string name="CultureInfo">en-US</string>
   <string-array name="IntervalPref">
     <item>@string/IntervalOneMinute</item>
     <item>@string/IntervalFifteenMinutes</item>
@@ -43,4 +40,11 @@
     <item>IntervalHalfDay</item>
     <item>IntervalDay</item>
   </string-array>
+  <string name="IntervalOneMinute">1 min</string>
+  <string name="IntervalFifteenMinutes">15 min</string>
+  <string name="IntervalHalfHour">30 min</string>
+  <string name="IntervalHour">1 hour</string>
+  <string name="IntervalHalfDay">12 hours</string>
+  <string name="IntervalDay">1 day</string>   
+  
 </resources>

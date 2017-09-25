@@ -96,7 +96,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ForecastDetailActivity.cs" />
     <Compile Include="ForecastListAdapter.cs" />
+    <Compile Include="ForecastViewListAdapter.cs" />
     <Compile Include="LogActivity.cs" />
     <Compile Include="LogDB.cs" />
     <Compile Include="LogListAdapter.cs" />
@@ -126,6 +128,12 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\Splash.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\Forecast.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\RowForecastView.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

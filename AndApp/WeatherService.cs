@@ -37,39 +37,6 @@ namespace WeatherApp
             var manager = NotificationManager.FromContext(context);
             manager.Notify(1337, notification);
         }
-        //public const int SERVICE_RUNNING_NOTIFICATION_ID = 10000;
-
-        //public override IBinder OnBind(Intent intent)
-        //{
-        //    return null;
-        //}
-
-        //public override void OnCreate()
-        //{
-
-        //    base.OnCreate();
-        //}
-
-        //public override StartCommandResult OnStartCommand(Intent intent, StartCommandFlags flags, int startId)
-        //{
-        //var nMgr = (NotificationManager)GetSystemService(NotificationService);
-
-        //ISharedPreferences d = PreferenceManager.GetDefaultSharedPreferences(this);
-        //string defaultCity = d.GetString("pref_default_country", intent.GetStringExtra("DefaultCity"));
-
-        //LogDB logDB = GetWeatherData(defaultCity);
-
-        //var notification = new Notification(Resource.Drawable.Icon, "New Message");
-        //var pendingIntent = PendingIntent.GetActivity(this, 0, new Intent(this, typeof(MainActivity)), 0);
-        //notification.SetLatestEventInfo(this, GetString(Resource.String.app_name),
-        //    string.Format(GetString(Resource.String.notification_content_text), logDB.City, logDB.temp, logDB.description), pendingIntent);
-        //nMgr.Notify(10000, notification);
-        //    notification.Flags |= NotificationFlags.AutoCancel;
-
-        //    return StartCommandResult.NotSticky;
-        //}
-
-
 
         public LogDB GetWeatherData(string City)
         {

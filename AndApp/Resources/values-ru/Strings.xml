@@ -21,6 +21,10 @@
   <string name="LogDBtoString">"В {0} погода {1} в {2} была {3}</string>
   <string name="emptyLog">Лог пуст</string>
   <string name="notification_content_text">Погода в {0} сейчас {1}C ({2})</string>
+  <string name="loadLogo">Показ лого</string>
+  <string name="loadLogoDesc">Показывать лого при старте?</string>
+  <string name="CultureInfo">ru-RU</string>
+
   <string name="IntervalOneMinute">1 мин</string>
   <string name="IntervalFifteenMinutes">15 мин</string>
   <string name="IntervalHalfHour">30 мин</string>
