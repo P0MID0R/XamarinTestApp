@@ -6,7 +6,9 @@ using Android.Runtime;
 
 namespace WeatherApp
 {
-    [Activity(Label = "@string/settings", Theme = "@android:style/Theme.Material", ParentActivity = typeof(MainActivity))]
+    [Activity(Label = "@string/settings", 
+        Theme = "@android:style/Theme.Material", 
+        ParentActivity = typeof(MainActivity))]
     public class SettingsActivity : PreferenceActivity
     {
         protected override void OnCreate(Bundle savedInstanceState)

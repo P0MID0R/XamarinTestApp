@@ -9,7 +9,9 @@ using System.Threading.Tasks;
 
 namespace WeatherApp
 {
-    [Activity(Label = "@string/app_name", Theme = "@android:style/Theme.NoTitleBar", MainLauncher = true, NoHistory = true)]
+    [Activity(Label = "@string/app_name", 
+        Theme = "@android:style/Theme.NoTitleBar", 
+        MainLauncher = true, NoHistory = true)]
     public class SplashActivity : Activity
     {
         protected override void OnCreate(Bundle savedInstanceState)

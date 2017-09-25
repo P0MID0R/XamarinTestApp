@@ -65,7 +65,10 @@ namespace WeatherApp
 
             holder.Icon.SetImageBitmap(imageBitmap);
             holder.Temp.Text = logs[position].temp.ToString();
-            holder.City.Text = logs[position].City + ". " + logs[position].date.ToString("dd/MM/yyyy") + " at " + logs[position].date.ToString("HH:mm");
+            holder.City.Text = 
+                logs[position].City + ". " 
+                + logs[position].date.ToString("dd/MM/yyyy") 
+                + " at " + logs[position].date.ToString("HH:mm");
 
             return view;
 

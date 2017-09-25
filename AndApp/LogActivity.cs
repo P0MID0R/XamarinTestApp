@@ -14,7 +14,9 @@ namespace WeatherApp
     [Activity(Label = "@string/Log", Theme = "@android:style/Theme.Material", ParentActivity = typeof(MainActivity))]
     public class LogActivity : ListActivity
     {
-        string path = System.IO.Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "localAppDB.db");
+        string path = System.IO.Path.Combine(
+            System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), 
+            "localAppDB.db");
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -26,7 +28,9 @@ namespace WeatherApp
                 this.ListAdapter = new LogListAdapter(GetAllData(path));
             }
             else 
-                this.ListAdapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleListItem1, new string[] { "@string/emptyLog" });
+                this.ListAdapter = new ArrayAdapter(
+                    this, Android.Resource.Layout.SimpleListItem1, 
+                    new string[] { "@string/emptyLog" });
         }
 
         private List<LogDB> GetAllData(string path)

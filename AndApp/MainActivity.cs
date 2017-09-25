@@ -30,7 +30,9 @@ namespace WeatherApp
         ScreenOrientation = ScreenOrientation.Portrait)]
     public class MainActivity : Activity
     {
-        string path = System.IO.Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "localAppDB.db");
+        string path = System.IO.Path.Combine(
+            System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), 
+            "localAppDB.db");
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -43,7 +45,8 @@ namespace WeatherApp
 
         protected override void OnRestart()
         {
-            NotificationManager notificationManager = (NotificationManager)this.GetSystemService(Context.NotificationService);
+            NotificationManager notificationManager = 
+                (NotificationManager)this.GetSystemService(Context.NotificationService);
             notificationManager.CancelAll();
             ServiceControl.StopAlarmService();
             base.OnRestart();
@@ -136,8 +139,10 @@ namespace WeatherApp
             {
                 ListView forecastView = FindViewById<ListView>(Resource.Id.forecastView);
 
-                DisplayResult(await GetWeatherData(PreferenceManager.GetDefaultSharedPreferences(this).GetString("pref_default_country", "")));
-                forecastView.Adapter = new ForecastListAdapter(await GetForecastData(PreferenceManager.GetDefaultSharedPreferences(this).GetString("pref_default_country", "")));
+                DisplayResult(await GetWeatherData(
+                    PreferenceManager.GetDefaultSharedPreferences(this).GetString("pref_default_country", "")));
+                forecastView.Adapter = new ForecastListAdapter(
+                    await GetForecastData(PreferenceManager.GetDefaultSharedPreferences(this).GetString("pref_default_country", "")));
             }
             catch
             {
@@ -153,7 +158,9 @@ namespace WeatherApp
                 var callDetails = new Intent(this, typeof(ForecastDetailActivity));
                 string OWAPIkey = "a4dcc6d4ef65f67ade104ecb98972b41";
                 string City = PreferenceManager.GetDefaultSharedPreferences(Application.Context).GetString("pref_default_country", "");
-                string Url = "http://api.openweathermap.org/data/2.5/forecast?q=" + City + "&appid=" + OWAPIkey + "&lang=" + Resources.Configuration.Locale.Language.ToString();
+                string Url = "http://api.openweathermap.org/data/2.5/forecast?q=" 
+                    + City + "&appid=" + OWAPIkey + "&lang=" 
+                    + Resources.Configuration.Locale.Language.ToString();
                 HttpClient client = new HttpClient();
                 var response = client.GetStringAsync(Url).Result;
 
@@ -208,7 +215,9 @@ namespace WeatherApp
             try
             {
                 string OWAPIkey = "a4dcc6d4ef65f67ade104ecb98972b41";
-                string Url = "http://api.openweathermap.org/data/2.5/weather?q=" + City + "&appid=" + OWAPIkey + "&lang=" + Resources.Configuration.Locale.Language.ToString();
+                string Url = "http://api.openweathermap.org/data/2.5/weather?q=" 
+                    + City + "&appid=" + OWAPIkey 
+                    + "&lang=" + Resources.Configuration.Locale.Language.ToString();
                 HttpClient client = new HttpClient();
                 var JsonInput = JObject.Parse(client.GetStringAsync(Url).Result);
 
@@ -237,7 +246,9 @@ namespace WeatherApp
             {
                 List<Forecast> forecastList = new List<Forecast>();
                 string OWAPIkey = "a4dcc6d4ef65f67ade104ecb98972b41";
-                string Url = "http://api.openweathermap.org/data/2.5/forecast?q=" + City + "&appid=" + OWAPIkey + "&lang=" + Resources.Configuration.Locale.Language.ToString();
+                string Url = "http://api.openweathermap.org/data/2.5/forecast?q=" + City 
+                    + "&appid=" + OWAPIkey 
+                    + "&lang=" + Resources.Configuration.Locale.Language.ToString();
                 HttpClient client = new HttpClient();
                 var response = client.GetStringAsync(Url).Result;
 
@@ -299,7 +310,9 @@ namespace WeatherApp
             TextView CityName = FindViewById<TextView>(Resource.Id.weatherMessage);
             var imageBitmap = GetImageBitmapFromUrl("http://openweathermap.org/img/w/" + inputData.icon + ".png");
             weathericon.SetImageBitmap(imageBitmap);
-            CityName.Text = string.Format(GetString(Resource.String.currentToast), inputData.City, inputData.temp.ToString(), inputData.description);
+            CityName.Text = string.Format(
+                GetString(Resource.String.currentToast), inputData.City, inputData.temp.ToString(), 
+                inputData.description);
 
             return true;
         }

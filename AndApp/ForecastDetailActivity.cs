@@ -30,14 +30,20 @@ namespace WeatherApp
             {
                 Forecast forecastData = JsonConvert.DeserializeObject<Forecast>(Intent.GetStringExtra("forecastData"));
                 var forecastListData = JObject.Parse(Intent.GetStringExtra("forecastListData"));
-                var imageBitmap = MainActivity.GetImageBitmapFromUrl("http://openweathermap.org/img/w/" + forecastData.Icon + ".png");
+                var imageBitmap = MainActivity.GetImageBitmapFromUrl("http://openweathermap.org/img/w/" +
+                    forecastData.Icon + ".png");
+
                 FindViewById<ImageView>(Resource.Id.ForecastIconView).SetImageBitmap(imageBitmap);
-                FindViewById<TextView>(Resource.Id.ForecastMainText).Text = forecastData.Date.ToString("dddd", new CultureInfo(GetString(Resource.String.CultureInfo))) +
+                FindViewById<TextView>(Resource.Id.ForecastMainText).Text =
+                    forecastData.Date.ToString("dddd", new CultureInfo(GetString(Resource.String.CultureInfo))) +
                     " (" + forecastData.Date.ToString("dd.MM.yy") + ")";
+
                 FindViewById<TextView>(Resource.Id.ForecastSupText).Text =
                     PreferenceManager.GetDefaultSharedPreferences(Application.Context).GetString("pref_default_country", "");
                 this.Title = forecastData.Date.ToString("dd.MM.yy");
-                FindViewById<ListView>(Resource.Id.listView1).Adapter = new ForecastViewListAdapter(GetForecastList((forecastListData), forecastData.Date));
+
+                FindViewById<ListView>(Resource.Id.listView1).Adapter =
+                    new ForecastViewListAdapter(GetForecastList((forecastListData), forecastData.Date));
             }
             catch
             {
