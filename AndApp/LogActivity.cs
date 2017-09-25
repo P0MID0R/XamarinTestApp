@@ -11,7 +11,9 @@ using SQLite;
 
 namespace WeatherApp
 {
-    [Activity(Label = "@string/Log", Theme = "@android:style/Theme.Material", ParentActivity = typeof(MainActivity))]
+    [Activity(Label = "@string/Log", 
+        Theme = "@android:style/Theme.Material", 
+        ParentActivity = typeof(MainActivity))]
     public class LogActivity : ListActivity
     {
         string path = System.IO.Path.Combine(
