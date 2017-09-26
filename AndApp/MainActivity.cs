@@ -26,7 +26,6 @@ namespace WeatherApp
         Icon = "@drawable/Icon",
         MainLauncher = false,
         Theme = "@android:style/Theme.Material",
-        ConfigurationChanges = ConfigChanges.Locale,
         ScreenOrientation = ScreenOrientation.Portrait)]
     public class MainActivity : Activity
     {
