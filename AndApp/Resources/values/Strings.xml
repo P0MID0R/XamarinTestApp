@@ -16,7 +16,7 @@
   <string name="error_message">Error</string>
   <string name="netError">No network connection</string>
   <string name="errorDB">Database error</string>
-  <string name="currentToast">{0} {1}C ({2})</string>
+  <string name="currentToast">{0} {1} ({2})</string>
   <string name="selectDC">Please select default city in options</string>
   <string name="LogDBtoString">"In {0} weather {1} in {2} was {3}</string>
   <string name="emptyLog">Log is empty</string>
@@ -24,11 +24,6 @@
   <string name="loadLogo">Show logo</string>
   <string name="loadLogoDesc">Show logo on startup?</string>
   <string name="CultureInfo">en-US</string>
-  <string name="PlotName">Weather {0}</string>
-  <string name="PlotHorizontal">Time</string>
-  <string name="FMtext">Weather - {0}C ({1})</string>
-  <string name="refresh">Refresh</string>
-  
   <string-array name="IntervalPref">
     <item>@string/IntervalOneMinute</item>
     <item>@string/IntervalFifteenMinutes</item>
@@ -50,5 +45,6 @@
   <string name="IntervalHalfHour">30 min</string>
   <string name="IntervalHour">1 hour</string>
   <string name="IntervalHalfDay">12 hours</string>
-  <string name="IntervalDay">1 day</string>  
+  <string name="IntervalDay">1 day</string>   
+  
 </resources>

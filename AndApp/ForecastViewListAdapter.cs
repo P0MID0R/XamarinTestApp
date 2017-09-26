@@ -18,16 +18,16 @@ namespace WeatherApp
     class ViewHolderForecastView : Java.Lang.Object
     {
         public ImageView Icon { get; set; }
-        public TextView Time { get; set; }
-        public TextView Text { get; set; }
+        public TextView MainText { get; set; }
+        public TextView SupText { get; set; }
     }
 
     public class ForecastView
     {
 
         public string Icon { get; set; }
-        public string Time { get; set; }
-        public string Text { get; set; }
+        public string MainText { get; set; }
+        public string SupText { get; set; }
     }
 
     class ForecastViewListAdapter : BaseAdapter<ForecastView>
@@ -69,11 +69,11 @@ namespace WeatherApp
                 view = LayoutInflater.From(parent.Context).Inflate(Resource.Layout.RowForecastView, parent, false);
 
                 var icon = view.FindViewById<ImageView>(Resource.Id.FWIcon);
-                var time = view.FindViewById<TextView>(Resource.Id.FWTimeText);
-                var text = view.FindViewById<TextView>(Resource.Id.FWText);
+                var MainText = view.FindViewById<TextView>(Resource.Id.FWMainText);
+                var SupText = view.FindViewById<TextView>(Resource.Id.FWSubText);
 
 
-                view.Tag = new ViewHolderForecastView() { Icon = icon, Time = time, Text = text};
+                view.Tag = new ViewHolderForecastView() { Icon = icon, MainText = MainText, SupText = SupText };
             }
 
             var holder = (ViewHolderForecastView)view.Tag;
@@ -81,8 +81,8 @@ namespace WeatherApp
             var imageBitmap = GetImageBitmapFromUrl("http://openweathermap.org/img/w/" + forecastsView[position].Icon + ".png");
 
             holder.Icon.SetImageBitmap(imageBitmap);
-            holder.Time.Text = forecastsView[position].Time;
-            holder.Text.Text = forecastsView[position].Text;
+            holder.MainText.Text = forecastsView[position].MainText;
+            holder.SupText.Text = forecastsView[position].SupText;
 
             return view;
 

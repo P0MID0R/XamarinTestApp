@@ -16,7 +16,7 @@
   <string name="error_message">Ошибка</string>
   <string name="netError">Нет доступа к сети</string>
   <string name="errorDB">Ошибка БД</string>
-  <string name="currentToast">{0} {1}C ({2})</string>
+  <string name="currentToast">{0} {1} ({2})</string>
   <string name="selectDC">Пожалуйста укажите город по-умолчанию в настройках</string>
   <string name="LogDBtoString">"В {0} погода {1} в {2} была {3}</string>
   <string name="emptyLog">Лог пуст</string>
@@ -24,11 +24,7 @@
   <string name="loadLogo">Показ лого</string>
   <string name="loadLogoDesc">Показывать лого при старте?</string>
   <string name="CultureInfo">ru-RU</string>
-  <string name="PlotName">Погода {0}</string>
-  <string name="PlotHorizontal">Время</string>
-  <string name="FMtext">Погода - {0}С ({1})</string>
-  <string name="refresh">Обновить</string>
-  
+
   <string name="IntervalOneMinute">1 мин</string>
   <string name="IntervalFifteenMinutes">15 мин</string>
   <string name="IntervalHalfHour">30 мин</string>

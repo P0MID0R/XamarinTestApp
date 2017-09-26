@@ -1,6 +1,5 @@
 ﻿using Android.App;
 using Android.Content;
-using Android.Content.PM;
 using Android.Graphics.Drawables;
 using Android.OS;
 using Android.Preferences;
@@ -12,8 +11,7 @@ namespace WeatherApp
 {
     [Activity(Label = "@string/app_name", 
         Theme = "@android:style/Theme.NoTitleBar", 
-        MainLauncher = true, NoHistory = true,
-        ScreenOrientation = ScreenOrientation.Portrait)]
+        MainLauncher = true, NoHistory = true)]
     public class SplashActivity : Activity
     {
         protected override void OnCreate(Bundle savedInstanceState)
@@ -47,6 +45,7 @@ namespace WeatherApp
         protected override void OnRestart()
         {
             base.OnRestart();
+            //StartActivity(new Intent(Application.Context, typeof(MainActivity)));
         }
 
         protected override void OnPause()
