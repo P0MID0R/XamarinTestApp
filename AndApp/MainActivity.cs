@@ -12,9 +12,6 @@ using Android.Graphics;
 using Android.Preferences;
 using Android.Content.PM;
 using Android.Views;
-using Android.Views.InputMethods;
-using IR.Sohreco.Circularpulsingbutton;
-using Android.Runtime;
 
 using SQLite;
 using Newtonsoft.Json.Linq;
