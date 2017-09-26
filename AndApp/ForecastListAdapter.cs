@@ -21,7 +21,6 @@ namespace WeatherApp
 
     public class Forecast
     {
-
         public string Icon { get; set; }
         public string Temp6 { get; set; }
         public string Temp12 { get; set; }
@@ -74,7 +73,12 @@ namespace WeatherApp
                 var temp18 = view.FindViewById<TextView>(Resource.Id.forecastTemp18);
                 var date = view.FindViewById<TextView>(Resource.Id.forecastDate);
 
-                view.Tag = new ViewHolderForecast() { Icon = icon, Temp6 = temp6, Temp12 = temp12, Temp18 = temp18, Date = date };
+                view.Tag = new ViewHolderForecast() {
+                    Icon = icon,
+                    Temp6 = temp6,
+                    Temp12 = temp12,
+                    Temp18 = temp18,
+                    Date = date };
             }
 
             var holder = (ViewHolderForecast)view.Tag;

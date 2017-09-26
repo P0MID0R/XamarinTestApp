@@ -8,23 +8,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/linearLayout1">
-        <ImageView
-            android:src="@android:drawable/ic_menu_gallery"
+        <OxyPlot.Xamarin.Android.PlotView
+            android:id="@+id/plot_view"
             android:layout_width="match_parent"
-            android:layout_height="50.5dp"
-            android:id="@+id/ForecastIconView" />
-        <TextView
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/ForecastMainText"
-            android:gravity="center" />
-        <TextView
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/ForecastSupText"
-            android:gravity="center" />
+            android:layout_height="200.0dp" />
     </LinearLayout>
     <ListView
         android:minWidth="25px"

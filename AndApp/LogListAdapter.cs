@@ -56,7 +56,10 @@ namespace WeatherApp
                 var temp = view.FindViewById<TextView>(Resource.Id.logTemp);
                 var city_date = view.FindViewById<TextView>(Resource.Id.logCity);
 
-                view.Tag = new ViewHolder() { Icon = icon, Temp = temp, City = city_date };
+                view.Tag = new ViewHolder() {
+                    Icon = icon,
+                    Temp = temp,
+                    City = city_date };
             }
 
             var holder = (ViewHolder)view.Tag;
