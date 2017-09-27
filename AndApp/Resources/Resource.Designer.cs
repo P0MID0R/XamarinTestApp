@@ -1522,17 +1522,17 @@ namespace WeatherApp
 			// aapt resource value: 0x7f02005a
 			public const int logo = 2130837594;
 			
+			// aapt resource value: 0x7f02005b
+			public const int navigationDrawer = 2130837595;
+			
 			// aapt resource value: 0x7f02005f
 			public const int notification_template_icon_bg = 2130837599;
 			
-			// aapt resource value: 0x7f02005b
-			public const int op_menu = 2130837595;
-			
 			// aapt resource value: 0x7f02005c
-			public const int refresh = 2130837596;
+			public const int op_menu = 2130837596;
 			
 			// aapt resource value: 0x7f02005d
-			public const int round_button = 2130837597;
+			public const int refresh = 2130837597;
 			
 			// aapt resource value: 0x7f02005e
 			public const int Settings = 2130837598;
@@ -1562,8 +1562,8 @@ namespace WeatherApp
 			// aapt resource value: 0x7f0b0064
 			public const int ForecastIcon = 2131427428;
 			
-			// aapt resource value: 0x7f0b007c
-			public const int Log_button = 2131427452;
+			// aapt resource value: 0x7f0b0080
+			public const int Log_button = 2131427456;
 			
 			// aapt resource value: 0x7f0b0056
 			public const int action0 = 2131427414;
@@ -1778,6 +1778,18 @@ namespace WeatherApp
 			// aapt resource value: 0x7f0b0013
 			public const int multiply = 2131427347;
 			
+			// aapt resource value: 0x7f0b007e
+			public const int nav_FeedBack = 2131427454;
+			
+			// aapt resource value: 0x7f0b007d
+			public const int nav_about = 2131427453;
+			
+			// aapt resource value: 0x7f0b007b
+			public const int nav_home = 2131427451;
+			
+			// aapt resource value: 0x7f0b007c
+			public const int nav_messages = 2131427452;
+			
 			// aapt resource value: 0x7f0b001e
 			public const int never = 2131427358;
 			
@@ -1802,8 +1814,8 @@ namespace WeatherApp
 			// aapt resource value: 0x7f0b003b
 			public const int radio = 2131427387;
 			
-			// aapt resource value: 0x7f0b007d
-			public const int refreshData = 2131427453;
+			// aapt resource value: 0x7f0b0081
+			public const int refreshData = 2131427457;
 			
 			// aapt resource value: 0x7f0b0014
 			public const int screen = 2131427348;
@@ -1850,8 +1862,8 @@ namespace WeatherApp
 			// aapt resource value: 0x7f0b004f
 			public const int select_dialog_listview = 2131427407;
 			
-			// aapt resource value: 0x7f0b007b
-			public const int settings_button = 2131427451;
+			// aapt resource value: 0x7f0b007f
+			public const int settings_button = 2131427455;
 			
 			// aapt resource value: 0x7f0b003a
 			public const int shortcut = 2131427386;
