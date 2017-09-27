@@ -16,27 +16,68 @@ using Android.Views;
 using SQLite;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
+using Android.Support.Design;
+using Android.Support.V4.Widget;
+using Android.Support.V7.App;
+using Android.Support.Design.Widget;
+using V7Toolbar = Android.Support.V7.Widget.Toolbar;
 
 namespace WeatherApp
 {
     [Activity(Label = "@string/app_name",
         Icon = "@drawable/Icon",
         MainLauncher = false,
-        Theme = "@android:style/Theme.Material",
+        Theme = "@style/Theme.AppCompat.NoActionBar",
         ScreenOrientation = ScreenOrientation.Portrait)]
-    public class MainActivity : Activity
+    public class MainActivity : AppCompatActivity
     {
         string path = System.IO.Path.Combine(
             System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), 
             "localAppDB.db");
+        DrawerLayout drawerLayout;
+        NavigationView navigationView;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.Main);
             ListView forecastView = FindViewById<ListView>(Resource.Id.forecastView);
+
+            drawerLayout = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
+            var toolbar = FindViewById<V7Toolbar>(Resource.Id.toolbar);
+            SetSupportActionBar(toolbar);
+            var drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, Resource.String.drawer_open, Resource.String.drawer_close);
+            drawerLayout.SetDrawerListener(drawerToggle);
+            drawerToggle.SyncState();
+            navigationView = FindViewById<NavigationView>(Resource.Id.nav_view);
+            setupDrawerContent(navigationView); 
+
+
             forecastView.ItemClick += forecastView_ItemClick;
             AppStartAsync();
+        }
+
+        void setupDrawerContent(NavigationView navigationView)
+        {
+            navigationView.NavigationItemSelected += (sender, e) =>
+            {
+                switch (e.MenuItem.ItemId)
+                {
+                    case Resource.Id.Log_button:
+                        {
+                            var callLog = new Intent(this, typeof(LogActivity));
+                            StartActivity(callLog);
+                            break;
+                        }
+                    case Resource.Id.settings_button:
+                        {
+                            var callLog = new Intent(this, typeof(SettingsActivity));
+                            StartActivity(callLog);
+                            break;
+                        }
+                }
+                drawerLayout.CloseDrawers();
+            };
         }
 
         protected override void OnRestart()
@@ -100,26 +141,15 @@ namespace WeatherApp
 
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
-            MenuInflater.Inflate(Resource.Drawable.op_menu, menu);
+            navigationView.InflateMenu(Resource.Menu.nav_menu);
+            MenuInflater.Inflate(Resource.Menu.op_menu, menu);
             return true;
         }
 
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
             switch (item.ItemId)
-            {
-                case Resource.Id.Log_button:
-                    {
-                        var callLog = new Intent(this, typeof(LogActivity));
-                        StartActivity(callLog);
-                        return true;
-                    }
-                case Resource.Id.settings_button:
-                    {
-                        var callLog = new Intent(this, typeof(SettingsActivity));
-                        StartActivity(callLog);
-                        return true;
-                    }
+            {                      
                 case Resource.Id.refreshData:
                     {
                         RefreshDataAsync();
@@ -128,6 +158,7 @@ namespace WeatherApp
             }
             return base.OnOptionsItemSelected(item);
         }
+
 
         private async Task RefreshDataAsync()
         {

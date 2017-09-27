@@ -4,6 +4,7 @@
   <string name="app_name">Weather</string>
   <string name="start">Start</string>
   <string name="start_hint">Enter city name</string>
+  <string name="mainPage">Main Page</string>
   <string name="log">log</string>
   <string name="settings">Settings</string>
   <string name="enterCity">Enter City</string>
@@ -28,6 +29,8 @@
   <string name="PlotHorizontal">Time</string>
   <string name="FMtext">Weather - {0}C ({1})</string>
   <string name="refresh">Refresh</string>
+  <string name="drawer_open">+</string>
+  <string name="drawer_close">-</string>
   
   <string-array name="IntervalPref">
     <item>@string/IntervalOneMinute</item>

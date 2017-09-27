@@ -142,7 +142,7 @@ namespace WeatherApp
                 {
                     Position = AxisPosition.Left,
                     Maximum = maxV + 1,
-                    Minimum = minV - 1,
+                    Minimum = minV - 5,
                     MajorStep = 5,
                     IsZoomEnabled = false,
                     IsPanEnabled = false,                   

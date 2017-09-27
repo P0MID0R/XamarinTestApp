@@ -4,7 +4,8 @@
   <string name="app_name">Погода</string>
   <string name="start">Старт</string>
   <string name="start_hint">Введите название города</string>
-  <string name="log">лог</string>
+  <string name="mainPage">На главную</string>
+  <string name="log">Лог</string>
   <string name="settings">Настройки</string>
   <string name="enterCity">Укажите город</string>
   <string name="settingsTite1">Основные настройки</string>

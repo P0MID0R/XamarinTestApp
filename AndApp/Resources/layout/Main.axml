@@ -1,45 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!--<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
+android:orientation="vertical"
+android:layout_width="match_parent"
+android:fitsSystemWindows="true"
+android:layout_height="match_parent">
+  <android.support.v4.widget.DrawerLayout 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:descendantFocusability="beforeDescendants"
-    android:focusableInTouchMode="true"
-    android:minWidth="25px"
-    android:minHeight="25px">
-    <LinearLayout
-        android:orientation="horizontal"
-        android:minWidth="25px"
-        android:minHeight="25px"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/linearLayout1"
-        android:gravity="center"
-        android:visibility="invisible">
-        <ImageView
-            android:src="@android:drawable/ic_menu_gallery"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:id="@+id/imageView1"
-            android:layout_marginBottom="0.0dp"
-            android:layout_marginRight="0.0dp"
-            android:layout_marginLeft="0.0dp"
-            android:layout_marginTop="0.0dp"
-            android:visibility="visible" />
-    </LinearLayout>
-    <TextView
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:layout_width="match_parent"
-        android:layout_height="32.0dp"
-        android:id="@+id/weatherMessage"
-        android:gravity="center"
-        android:visibility="invisible" />
-    <ListView
-        android:minWidth="25px"
-        android:minHeight="25px"
-        android:layout_width="match_parent"
+    android:fitsSystemWindows="true">  
+    <LinearLayout    
+         android:layout_width="match_parent"    
+         android:layout_height="match_parent"    
+         android:orientation="vertical">    
+      <include layout="@layout/toolbar" />    
+      </LinearLayout>  
+  
+    
+    <android.support.design.widget.NavigationView
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:id="@+id/forecastView"
-        android:visibility="invisible" />
-</LinearLayout>
+        android:layout_gravity="start"
+        android:id="@+id/nav_view"
+        app:menu="@menu/nav_menu" 
+        app:headerLayout="@layout/nav_header"/>
+  </android.support.v4.widget.DrawerLayout>
+</LinearLayout>-->
+<LinearLayout 
+      xmlns:android="http://schemas.android.com/apk/res/android"    
+      android:orientation="vertical"    
+      android:layout_width="match_parent"    
+      android:layout_height="match_parent">    
+      <android.support.v4.widget.DrawerLayout xmlns:app="http://schemas.android.com/apk/res-auto"    
+         android:id="@+id/drawer_layout"    
+         android:layout_height="match_parent"    
+         android:layout_width="fill_parent"    
+         android:fitsSystemWindows="true">    
+      <!--<LinearLayout    
+         android:layout_width="match_parent"    
+         android:layout_height="match_parent"    
+         android:orientation="vertical">    
+      <include layout="@layout/toolbar" />    
+      </LinearLayout>   -->
+        <LinearLayout    
+         android:layout_width="match_parent"    
+         android:layout_height="match_parent"    
+         android:orientation="vertical">    
+      <include layout="@layout/mainPageContent" />  
+      </LinearLayout> 
+      <android.support.design.widget.NavigationView    
+         android:id="@+id/nav_view"    
+         android:layout_height="match_parent"    
+         android:layout_width="300dp"    
+         android:layout_gravity="start"   
+         android:fitsSystemWindows="true"    
+         app:headerLayout="@layout/nav_header" />    
+      </android.support.v4.widget.DrawerLayout>   
+</LinearLayout> 
