@@ -10,6 +10,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.Preferences;
+using Android.Content.Res;
 
 namespace WeatherApp
 {
@@ -24,12 +25,13 @@ namespace WeatherApp
             var alarmManager = Application.Context.GetSystemService("alarm").JavaCast<AlarmManager>();
             alarmManager.Cancel(pending);
         }
-        public static void StartAlarmService()
+        public static void StartAlarmService(string lang)
         {
             ISharedPreferences d = PreferenceManager.GetDefaultSharedPreferences(Application.Context);
             var alarmIntent = new Intent(Application.Context, typeof(WeatherService));
             string intervalPref = d.GetString("pref_default_frequency", "");
             alarmIntent.PutExtra("DefaultCity", d.GetString("pref_default_country", ""));
+            alarmIntent.PutExtra("lang", lang);
 
             long interval = 0;
 
@@ -58,7 +60,7 @@ namespace WeatherApp
             var pending = PendingIntent.GetBroadcast(Application.Context, 0, alarmIntent, PendingIntentFlags.UpdateCurrent);
 
             var alarmManager = Application.Context.GetSystemService("alarm").JavaCast<AlarmManager>();
-            alarmManager.SetRepeating(AlarmType.ElapsedRealtime, SystemClock.ElapsedRealtime() + 5 * 1000, interval, pending);
+            alarmManager.SetRepeating(AlarmType.ElapsedRealtime, SystemClock.ElapsedRealtime(), interval, pending);
         }
     }
 }

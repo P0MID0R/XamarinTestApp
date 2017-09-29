@@ -6,7 +6,7 @@ using Android.Views;
 using Android.Widget;
 using Android.Graphics;
 using System.Threading.Tasks;
-
+using System.Globalization;
 
 namespace WeatherApp
 {
@@ -26,6 +26,7 @@ namespace WeatherApp
         public string Temp12 { get; set; }
         public string Temp18 { get; set; }
         public DateTime Date { get; set; }
+        public string Locale {get; set;}
     }
 
     class ForecastListAdapter : BaseAdapter<Forecast>
@@ -89,7 +90,10 @@ namespace WeatherApp
             holder.Temp6.Text = forecasts[position].Temp6;
             holder.Temp12.Text = forecasts[position].Temp12;
             holder.Temp18.Text = forecasts[position].Temp18;
-            holder.Date.Text = forecasts[position].Date.Day.ToString("D2") + "." + forecasts[position].Date.Month.ToString("D2");
+            holder.Date.Text = 
+                forecasts[position].Date.Day.ToString("D2") + "."
+                + forecasts[position].Date.Month.ToString("D2") + " "
+                + forecasts[position].Date.ToString("dddd", new CultureInfo(forecasts[position].Locale));
 
             return view;
 

@@ -52,7 +52,6 @@ namespace WeatherApp
             navigationView = FindViewById<NavigationView>(Resource.Id.nav_view);
             setupDrawerContent(navigationView); 
 
-
             forecastView.ItemClick += forecastView_ItemClick;
             AppStartAsync();
         }
@@ -91,7 +90,7 @@ namespace WeatherApp
 
         protected override void OnStop()
         {
-            ServiceControl.StartAlarmService();
+            ServiceControl.StartAlarmService(Resources.Configuration.Locale.Language.ToString());
             base.OnStop();
         }
 
@@ -285,7 +284,8 @@ namespace WeatherApp
                     Icon = "",
                     Temp6 = "-",
                     Temp12 = "-",
-                    Temp18 = "-"
+                    Temp18 = "-",
+                    Locale = GetString(Resource.String.CultureInfo)
                 };
 
                 for (var i = 0; i < ((JArray)forecastData["list"]).Count; i++)
@@ -312,7 +312,14 @@ namespace WeatherApp
                         tempForecast.Temp18 = (Math.Round(Convert.ToDouble(JSONtemp.Replace('.', ',')) - 273.15)).ToString();
                         tempForecast.Date = tempdate;
                         forecastList.Add(tempForecast);
-                        tempForecast = new Forecast();
+                        tempForecast = new Forecast
+                        {
+                            Icon = "",
+                            Temp6 = "-",
+                            Temp12 = "-",
+                            Temp18 = "-",
+                            Locale = GetString(Resource.String.CultureInfo)
+                        };
                     }
                 }
                 return forecastList;

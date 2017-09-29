@@ -1,5 +1,6 @@
 ﻿using Android.App;
 using Android.Content;
+using Android.Content.Res;
 using Android.OS;
 using Android.Preferences;
 using Newtonsoft.Json.Linq;
@@ -11,9 +12,12 @@ namespace WeatherApp
     [BroadcastReceiver]
     class WeatherService : BroadcastReceiver
     {
+        string lang;
+
         public override void OnReceive(Context context, Intent intent)
         {
             var defaultCity = intent.GetStringExtra("DefaultCity");
+            lang = intent.GetStringExtra("lang");
 
             LogDB logDB = GetWeatherData(defaultCity);
 
@@ -43,7 +47,7 @@ namespace WeatherApp
             try
             {
                 string OWAPIkey = "a4dcc6d4ef65f67ade104ecb98972b41";
-                string Url = "http://api.openweathermap.org/data/2.5/weather?q=" + City + "&appid=" + OWAPIkey;
+                string Url = "http://api.openweathermap.org/data/2.5/weather?q=" + City + "&appid=" + OWAPIkey + "&lang=" + lang;
                 HttpClient client = new HttpClient();
                 var JsonInput = JObject.Parse(client.GetStringAsync(Url).Result);
 
