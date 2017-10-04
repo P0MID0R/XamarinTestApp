@@ -37,12 +37,6 @@ android:layout_height="match_parent">
          android:layout_height="match_parent"    
          android:layout_width="fill_parent"    
          android:fitsSystemWindows="true">    
-      <!--<LinearLayout    
-         android:layout_width="match_parent"    
-         android:layout_height="match_parent"    
-         android:orientation="vertical">    
-      <include layout="@layout/toolbar" />    
-      </LinearLayout>   -->
         <LinearLayout    
          android:layout_width="match_parent"    
          android:layout_height="match_parent"    

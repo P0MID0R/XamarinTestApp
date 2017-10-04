@@ -29,6 +29,8 @@
   <string name="PlotHorizontal">Время</string>
   <string name="FMtext">Погода - {0}С ({1})</string>
   <string name="refresh">Обновить</string>
+  <string name="exitMessage">Нажмите НАЗАД ещё раз для выхода</string>
+  <string name="lastData">последнее обновление в {0}</string>
   
   <string name="IntervalOneMinute">1 мин</string>
   <string name="IntervalFifteenMinutes">15 мин</string>

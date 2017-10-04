@@ -86,13 +86,20 @@ namespace WeatherApp
 
             var imageBitmap = GetImageBitmapFromUrl("http://openweathermap.org/img/w/" + forecasts[position].Icon + ".png");
 
-            holder.Icon.SetImageBitmap(imageBitmap);
+            if (forecasts[position].Icon.Length < 4)
+            {
+                holder.Icon.SetImageBitmap(imageBitmap);
+            }
+            else holder.Icon.SetImageBitmap(BitmapFactory.DecodeByteArray(
+                Convert.FromBase64String(forecasts[position].Icon), 
+                0, 
+                Convert.FromBase64String(forecasts[position].Icon).Length));
             holder.Temp6.Text = forecasts[position].Temp6;
             holder.Temp12.Text = forecasts[position].Temp12;
             holder.Temp18.Text = forecasts[position].Temp18;
             holder.Date.Text = 
                 forecasts[position].Date.Day.ToString("D2") + "."
-                + forecasts[position].Date.Month.ToString("D2") + " "
+                + forecasts[position].Date.Month.ToString("D2") + " " + Environment.NewLine 
                 + forecasts[position].Date.ToString("dddd", new CultureInfo(forecasts[position].Locale));
 
             return view;

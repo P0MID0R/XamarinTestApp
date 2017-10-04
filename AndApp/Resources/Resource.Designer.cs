@@ -82,6 +82,9 @@ namespace WeatherApp
 			// aapt resource value: 0x7f040010
 			public const int loadingLogo = 2130968592;
 			
+			// aapt resource value: 0x7f040011
+			public const int rotate_corner = 2130968593;
+			
 			static Animation()
 			{
 				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
@@ -3199,23 +3202,23 @@ namespace WeatherApp
 			// aapt resource value: 0x7f080044
 			public const int FMtext = 2131230788;
 			
-			// aapt resource value: 0x7f08004d
-			public const int IntervalDay = 2131230797;
-			
-			// aapt resource value: 0x7f080049
-			public const int IntervalFifteenMinutes = 2131230793;
-			
-			// aapt resource value: 0x7f08004c
-			public const int IntervalHalfDay = 2131230796;
-			
-			// aapt resource value: 0x7f08004a
-			public const int IntervalHalfHour = 2131230794;
+			// aapt resource value: 0x7f08004f
+			public const int IntervalDay = 2131230799;
 			
 			// aapt resource value: 0x7f08004b
-			public const int IntervalHour = 2131230795;
+			public const int IntervalFifteenMinutes = 2131230795;
 			
-			// aapt resource value: 0x7f080048
-			public const int IntervalOneMinute = 2131230792;
+			// aapt resource value: 0x7f08004e
+			public const int IntervalHalfDay = 2131230798;
+			
+			// aapt resource value: 0x7f08004c
+			public const int IntervalHalfHour = 2131230796;
+			
+			// aapt resource value: 0x7f08004d
+			public const int IntervalHour = 2131230797;
+			
+			// aapt resource value: 0x7f08004a
+			public const int IntervalOneMinute = 2131230794;
 			
 			// aapt resource value: 0x7f08002a
 			public const int Log = 2131230762;
@@ -3354,6 +3357,12 @@ namespace WeatherApp
 			
 			// aapt resource value: 0x7f080037
 			public const int error_message = 2131230775;
+			
+			// aapt resource value: 0x7f080048
+			public const int exitMessage = 2131230792;
+			
+			// aapt resource value: 0x7f080049
+			public const int lastData = 2131230793;
 			
 			// aapt resource value: 0x7f08003f
 			public const int loadLogo = 2131230783;

@@ -31,6 +31,8 @@
   <string name="refresh">Refresh</string>
   <string name="drawer_open">+</string>
   <string name="drawer_close">-</string>
+  <string name="exitMessage">Сlick BACK again to exit</string>
+  <string name="lastData">last update in {0}</string>
   
   <string-array name="IntervalPref">
     <item>@string/IntervalOneMinute</item>

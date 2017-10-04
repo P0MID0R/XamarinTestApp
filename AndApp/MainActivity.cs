@@ -21,6 +21,8 @@ using Android.Support.V4.Widget;
 using Android.Support.V7.App;
 using Android.Support.Design.Widget;
 using V7Toolbar = Android.Support.V7.Widget.Toolbar;
+using Android.Views.Animations;
+using Android.Support.V4.View;
 
 namespace WeatherApp
 {
@@ -32,16 +34,19 @@ namespace WeatherApp
     public class MainActivity : AppCompatActivity
     {
         string path = System.IO.Path.Combine(
-            System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), 
+            System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal),
             "localAppDB.db");
         DrawerLayout drawerLayout;
         NavigationView navigationView;
+        bool doubleBackToExitPressedOnce = false;
+        ImageView weathericon;
+        TextView CityName;
+        ListView forecastView;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.Main);
-            ListView forecastView = FindViewById<ListView>(Resource.Id.forecastView);
 
             drawerLayout = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
             var toolbar = FindViewById<V7Toolbar>(Resource.Id.toolbar);
@@ -50,8 +55,9 @@ namespace WeatherApp
             drawerLayout.SetDrawerListener(drawerToggle);
             drawerToggle.SyncState();
             navigationView = FindViewById<NavigationView>(Resource.Id.nav_view);
-            setupDrawerContent(navigationView); 
+            setupDrawerContent(navigationView);
 
+            ListView forecastView = FindViewById<ListView>(Resource.Id.forecastView);
             forecastView.ItemClick += forecastView_ItemClick;
             AppStartAsync();
         }
@@ -79,9 +85,31 @@ namespace WeatherApp
             };
         }
 
+        public override void OnBackPressed()
+        {
+
+            if (drawerLayout.IsDrawerOpen(GravityCompat.Start))
+            {
+                drawerLayout.CloseDrawers();
+                return;
+            }
+
+            if (doubleBackToExitPressedOnce)
+                base.OnBackPressed();
+
+            doubleBackToExitPressedOnce = true;
+
+            Toast.MakeText(ApplicationContext, Resource.String.exitMessage, ToastLength.Long).Show();
+
+            new Handler().PostDelayed(new Action(() =>
+            {
+                doubleBackToExitPressedOnce = false;
+            }), 2000);
+        }
+
         protected override void OnRestart()
         {
-            NotificationManager notificationManager = 
+            NotificationManager notificationManager =
                 (NotificationManager)this.GetSystemService(Context.NotificationService);
             notificationManager.CancelAll();
             ServiceControl.StopAlarmService();
@@ -98,7 +126,7 @@ namespace WeatherApp
         {
             try
             {
-                ListView forecastView = FindViewById<ListView>(Resource.Id.forecastView);
+                forecastView = FindViewById<ListView>(Resource.Id.forecastView);
 
                 connectDatabase(path);
 
@@ -108,7 +136,7 @@ namespace WeatherApp
                 {
                     prefEditor.PutString("pref_default_country", (string)GetCurrentLocationNetwork()["city"]);
                     prefEditor.PutString("pref_default_frequency", "IntervalHour");
-                    prefEditor.PutBoolean("pref_loading_show",true);
+                    prefEditor.PutBoolean("pref_loading_show", false);
                     prefEditor.Commit();
                 }
                 string defaultCity = d.GetString("pref_default_country", "");
@@ -119,9 +147,11 @@ namespace WeatherApp
                     {
                         DisplayResult(await GetWeatherData(defaultCity));
                         forecastView.Adapter = new ForecastListAdapter(await GetForecastData(defaultCity));
+                        SaveDatainDB(defaultCity);
                     }
                     catch
                     {
+                        GetLastData();
                         Toast.MakeText(ApplicationContext, GetString(Resource.String.netError), ToastLength.Long).Show();
                     }
                 }
@@ -148,9 +178,11 @@ namespace WeatherApp
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
             switch (item.ItemId)
-            {                      
+            {
                 case Resource.Id.refreshData:
                     {
+                        var rotateAboutCornerAnimation = AnimationUtils.LoadAnimation(this, Resource.Animation.rotate_corner);
+                        FindViewById(item.ItemId).StartAnimation(rotateAboutCornerAnimation);
                         RefreshDataAsync();
                         return true;
                     }
@@ -163,16 +195,18 @@ namespace WeatherApp
         {
             try
             {
-                ListView forecastView = FindViewById<ListView>(Resource.Id.forecastView);
+                forecastView = FindViewById<ListView>(Resource.Id.forecastView);
 
                 DisplayResult(await GetWeatherData(
                     PreferenceManager.GetDefaultSharedPreferences(this).GetString("pref_default_country", "")));
                 forecastView.Adapter = new ForecastListAdapter(
                     await GetForecastData(PreferenceManager.GetDefaultSharedPreferences(this).GetString("pref_default_country", "")));
+                SaveDatainDB(PreferenceManager.GetDefaultSharedPreferences(this).GetString("pref_default_country", ""));
             }
             catch
             {
-                Toast.MakeText(ApplicationContext, GetString(Resource.String.error_message), ToastLength.Long).Show();
+                GetLastData();
+                Toast.MakeText(ApplicationContext, GetString(Resource.String.netError), ToastLength.Long).Show();
             }
         }
 
@@ -184,8 +218,8 @@ namespace WeatherApp
                 var callDetails = new Intent(this, typeof(ForecastDetailActivity));
                 string OWAPIkey = "a4dcc6d4ef65f67ade104ecb98972b41";
                 string City = PreferenceManager.GetDefaultSharedPreferences(Application.Context).GetString("pref_default_country", "");
-                string Url = "http://api.openweathermap.org/data/2.5/forecast?q=" 
-                    + City + "&appid=" + OWAPIkey + "&lang=" 
+                string Url = "http://api.openweathermap.org/data/2.5/forecast?q="
+                    + City + "&appid=" + OWAPIkey + "&lang="
                     + Resources.Configuration.Locale.Language.ToString();
                 HttpClient client = new HttpClient();
                 var response = client.GetStringAsync(Url).Result;
@@ -210,14 +244,15 @@ namespace WeatherApp
         {
             try
             {
-                var connection = new SQLiteConnection(path);
-                {
-                    connection.CreateTable<LogDB>();
-                    return null;
-                }
+                var connection = new SQLite.SQLiteConnection(path);
+                connection.CreateTable<LogDB>();
+                connection.CreateTable<LastData>();
+                var data = connection.Query<LastData>("SELECT * from LastData");
+                return null;
             }
-            catch
+            catch (SQLiteException ex)
             {
+                Toast.MakeText(ApplicationContext, Resource.String.error_message, ToastLength.Long).Show();
                 return "@string/errorDB";
             }
         }
@@ -241,8 +276,8 @@ namespace WeatherApp
             try
             {
                 string OWAPIkey = "a4dcc6d4ef65f67ade104ecb98972b41";
-                string Url = "http://api.openweathermap.org/data/2.5/weather?q=" 
-                    + City + "&appid=" + OWAPIkey 
+                string Url = "http://api.openweathermap.org/data/2.5/weather?q="
+                    + City + "&appid=" + OWAPIkey
                     + "&lang=" + Resources.Configuration.Locale.Language.ToString();
                 HttpClient client = new HttpClient();
                 var JsonInput = JObject.Parse(client.GetStringAsync(Url).Result);
@@ -272,8 +307,8 @@ namespace WeatherApp
             {
                 List<Forecast> forecastList = new List<Forecast>();
                 string OWAPIkey = "a4dcc6d4ef65f67ade104ecb98972b41";
-                string Url = "http://api.openweathermap.org/data/2.5/forecast?q=" + City 
-                    + "&appid=" + OWAPIkey 
+                string Url = "http://api.openweathermap.org/data/2.5/forecast?q=" + City
+                    + "&appid=" + OWAPIkey
                     + "&lang=" + Resources.Configuration.Locale.Language.ToString();
                 HttpClient client = new HttpClient();
                 var response = client.GetStringAsync(Url).Result;
@@ -287,6 +322,7 @@ namespace WeatherApp
                     Temp18 = "-",
                     Locale = GetString(Resource.String.CultureInfo)
                 };
+
 
                 for (var i = 0; i < ((JArray)forecastData["list"]).Count; i++)
                 {
@@ -308,7 +344,8 @@ namespace WeatherApp
                     if (tempdate.TimeOfDay.Hours == 18)
                     {
                         string JSONtemp = (string)forecastData["list"][i]["main"]["temp"];
-                        tempForecast.Icon = (string)forecastData["list"][i]["weather"][0]["icon"];
+                        if (tempForecast.Icon == "")
+                            tempForecast.Icon = (string)forecastData["list"][i]["weather"][0]["icon"];
                         tempForecast.Temp18 = (Math.Round(Convert.ToDouble(JSONtemp.Replace('.', ',')) - 273.15)).ToString();
                         tempForecast.Date = tempdate;
                         forecastList.Add(tempForecast);
@@ -340,15 +377,110 @@ namespace WeatherApp
 
         private bool DisplayResult(LogDB inputData)
         {
-            ImageView weathericon = FindViewById<ImageView>(Resource.Id.imageView1);
-            TextView CityName = FindViewById<TextView>(Resource.Id.weatherMessage);
+            weathericon = FindViewById<ImageView>(Resource.Id.imageView1);
+            CityName = FindViewById<TextView>(Resource.Id.weatherMessage);
             var imageBitmap = GetImageBitmapFromUrl("http://openweathermap.org/img/w/" + inputData.icon + ".png");
+
             weathericon.SetImageBitmap(imageBitmap);
             CityName.Text = string.Format(
-                GetString(Resource.String.currentToast), inputData.City, inputData.temp.ToString(), 
+                GetString(Resource.String.currentToast), inputData.City, inputData.temp.ToString(),
                 inputData.description);
-
             return true;
+        }
+
+        public async Task SaveDatainDB(string City)
+        {
+            try
+            {
+                List<LastData> lastDatalist = new List<LastData>();
+                string OWAPIkey = "a4dcc6d4ef65f67ade104ecb98972b41";
+                string Url = "http://api.openweathermap.org/data/2.5/forecast?q=" + City
+                    + "&appid=" + OWAPIkey
+                    + "&lang=" + Resources.Configuration.Locale.Language.ToString();
+                HttpClient client = new HttpClient();
+                var response = client.GetStringAsync(Url).Result;
+                var webClient = new WebClient();
+                var forecastData = JObject.Parse(response);
+
+                LogDB currentdata = await GetWeatherData(City);
+                lastDatalist.Add(new LastData
+                {
+                    City = City,
+                    date = currentdata.date,
+                    icon = Convert.ToBase64String(
+                                webClient.DownloadData("http://openweathermap.org/img/w/" + currentdata.icon + ".png")),
+                    ID = 0,
+                    temp12 = currentdata.temp.ToString(),
+                    description = currentdata.description
+                });
+
+                LastData tempLB = new LastData
+                {
+                    City = City,
+                    date = DateTime.Now,
+                    description = "",
+                    icon = "",
+                    temp6 = "-",
+                    temp12 = "-",
+                    temp18 = "-",
+                    ID = 1
+                };
+
+                int counter = 1;            
+
+                for (var i = 0; i < ((JArray)forecastData["list"]).Count; i++)
+                {
+                    DateTime tempdate = DateTime.ParseExact((string)forecastData["list"][i]["dt_txt"], "yyyy-MM-dd HH:mm:ss",
+                                       System.Globalization.CultureInfo.InvariantCulture);
+
+                    if (tempdate.TimeOfDay.Hours == 6)
+                    {
+                        string JSONtemp = (string)forecastData["list"][i]["main"]["temp"];
+
+                        tempLB.temp6 = (Math.Round(Convert.ToDouble(JSONtemp.Replace('.', ',')) - 273.15)).ToString();
+                    }
+                    if (tempdate.TimeOfDay.Hours == 12)
+                    {
+                        string JSONtemp = (string)forecastData["list"][i]["main"]["temp"];
+                        tempLB.icon = Convert.ToBase64String(
+                                webClient.DownloadData("http://openweathermap.org/img/w/" + (string)forecastData["list"][i]["weather"][0]["icon"] + ".png"));
+                        tempLB.temp12 = (Math.Round(Convert.ToDouble(JSONtemp.Replace('.', ',')) - 273.15)).ToString();
+                    }
+                    if (tempdate.TimeOfDay.Hours == 18)
+                    {
+                        string JSONtemp = (string)forecastData["list"][i]["main"]["temp"];
+                        if (tempLB.icon == "")
+                            tempLB.icon = Convert.ToBase64String(
+                                webClient.DownloadData("http://openweathermap.org/img/w/" + (string)forecastData["list"][i]["weather"][0]["icon"] + ".png"));
+                        tempLB.temp18 = (Math.Round(Convert.ToDouble(JSONtemp.Replace('.', ',')) - 273.15)).ToString();
+                        tempLB.date = tempdate;
+                        lastDatalist.Add(tempLB);
+                        counter += 1;
+                        tempLB = new LastData
+                        {
+                            City = City,
+                            date = DateTime.Now,
+                            description = "",
+                            icon = "",
+                            temp6 = "-",
+                            temp12 = "-",
+                            temp18 = "-",
+                            ID = counter
+                        };
+                    }
+                }
+                var db = new SQLiteConnection(path);
+                var data = db.Query<LastData>("SELECT * from LastData");
+                foreach (var item in lastDatalist)
+                {
+                    db.InsertOrReplace(item);
+                }
+                data = db.Query<LastData>("SELECT * from LastData");
+            }
+            catch
+            {
+                Toast.MakeText(ApplicationContext, Resource.String.error_message, ToastLength.Long).Show();
+            }
         }
 
         public static Bitmap GetImageBitmapFromUrl(string url)
@@ -364,7 +496,42 @@ namespace WeatherApp
                 }
             }
             return imageBitmap;
-        }       
+        }
+
+        public async Task GetLastData()
+        {
+            var db = new SQLiteConnection(path);
+            var data = db.Query<LastData>("SELECT * from LastData");
+
+           
+            Bitmap imageBitmap = BitmapFactory.DecodeByteArray(Convert.FromBase64String(data[0].icon), 0, Convert.FromBase64String(data[0].icon).Length);
+
+            weathericon.SetImageBitmap(imageBitmap);
+            CityName.Text = string.Format(
+                GetString(Resource.String.currentToast), data[0].City, data[0].temp12,
+                data[0].description) 
+                + System.Environment.NewLine +
+                string.Format(GetString(Resource.String.lastData),data[0].date.ToString("HH:mm"));
+
+            forecastView = FindViewById<ListView>(Resource.Id.forecastView);
+
+            List<Forecast> Flist = new List<Forecast>();
+
+            for (int i = 1; i < data.Count; i++)
+            {
+                Flist.Add(new Forecast
+                {
+                    Date = data[i].date,
+                    Icon = data[i].icon,
+                    Locale = GetString(Resource.String.CultureInfo),
+                    Temp6 = data[i].temp6,
+                    Temp12 = data[i].temp12,
+                    Temp18 = data[i].temp18
+                });
+            }
+
+            forecastView.Adapter = new ForecastListAdapter(Flist);
+        }
     }
 
 }
