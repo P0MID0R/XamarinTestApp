@@ -16,8 +16,6 @@ namespace WeatherApp
 {
     public class ServiceControl
     {
-        //MainActivity mAct = new MainActivity();
-
         public static void StopAlarmService()
         {
             var alarmIntent = new Intent(Application.Context, typeof(WeatherService));

@@ -137,6 +137,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppController.cs" />
     <Compile Include="ForecastDetailActivity.cs" />
     <Compile Include="ForecastListAdapter.cs" />
     <Compile Include="ForecastViewListAdapter.cs" />

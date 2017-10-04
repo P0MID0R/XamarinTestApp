@@ -21,8 +21,7 @@ namespace WeatherApp
             "localAppDB.db");
 
         protected override void OnCreate(Bundle savedInstanceState)
-        {
-            ServiceControl.StopAlarmService();
+        {         
             base.OnCreate(savedInstanceState);
 
             if (GetAllData(path).Count != 0)
@@ -33,6 +32,28 @@ namespace WeatherApp
                 this.ListAdapter = new ArrayAdapter(
                     this, Android.Resource.Layout.SimpleListItem1, 
                     new string[] { "@string/emptyLog" });
+            ServiceControl.StopAlarmService();
+        }
+
+        protected override void OnStart()
+        {          
+            base.OnStart();
+        }
+
+        protected override void OnRestart()
+        {
+            base.OnRestart();
+        }
+
+        protected override void OnResume()
+        {
+            ServiceControl.StopAlarmService();
+            base.OnResume();
+        }
+
+        protected override void OnStop()
+        {
+            base.OnStop();
         }
 
         private List<LogDB> GetAllData(string path)

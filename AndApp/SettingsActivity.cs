@@ -18,5 +18,13 @@ namespace WeatherApp
             AddPreferencesFromResource(Resource.Drawable.Settings);
             ISharedPreferences d = PreferenceManager.GetDefaultSharedPreferences(this);    
         }
+
+        protected override void OnResume()
+        {
+            ServiceControl.StopAlarmService();
+            base.OnResume();
+        }
     }
+
+
 }

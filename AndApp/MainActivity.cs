@@ -116,10 +116,37 @@ namespace WeatherApp
             base.OnRestart();
         }
 
-        protected override void OnStop()
+        protected override void OnPause()
         {
             ServiceControl.StartAlarmService(Resources.Configuration.Locale.Language.ToString());
+            base.OnPause();
+        }
+
+        protected override void OnStop()
+        {        
             base.OnStop();
+        }
+
+        public override bool OnCreateOptionsMenu(IMenu menu)
+        {
+            navigationView.InflateMenu(Resource.Menu.nav_menu);
+            MenuInflater.Inflate(Resource.Menu.op_menu, menu);
+            return true;
+        }
+
+        public override bool OnOptionsItemSelected(IMenuItem item)
+        {
+            switch (item.ItemId)
+            {
+                case Resource.Id.refreshData:
+                    {
+                        var rotateAboutCornerAnimation = AnimationUtils.LoadAnimation(this, Resource.Animation.rotate_corner);
+                        FindViewById(item.ItemId).StartAnimation(rotateAboutCornerAnimation);
+                        RefreshDataAsync();
+                        return true;
+                    }
+            }
+            return base.OnOptionsItemSelected(item);
         }
 
         private async Task AppStartAsync()
@@ -168,27 +195,7 @@ namespace WeatherApp
             }
         }
 
-        public override bool OnCreateOptionsMenu(IMenu menu)
-        {
-            navigationView.InflateMenu(Resource.Menu.nav_menu);
-            MenuInflater.Inflate(Resource.Menu.op_menu, menu);
-            return true;
-        }
-
-        public override bool OnOptionsItemSelected(IMenuItem item)
-        {
-            switch (item.ItemId)
-            {
-                case Resource.Id.refreshData:
-                    {
-                        var rotateAboutCornerAnimation = AnimationUtils.LoadAnimation(this, Resource.Animation.rotate_corner);
-                        FindViewById(item.ItemId).StartAnimation(rotateAboutCornerAnimation);
-                        RefreshDataAsync();
-                        return true;
-                    }
-            }
-            return base.OnOptionsItemSelected(item);
-        }
+        
 
 
         private async Task RefreshDataAsync()
